@@ -1,0 +1,51 @@
+:root {
+  --main-color: #b68834;
+  --section-footer-color:#4f2b17;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+img{
+  width: 40px;
+  height: 40px;
+}
+/* Start All Users  */
+.allProducts,
+.allUsers {
+  height: 550px;
+}
+.allProducts h2,
+.allUsers h2 {
+  color: var(--main-color);
+}
+.allProducts .table,
+.allUsers .table {
+  border: 1px solid var(--section-footer-color);
+}
+.allProducts .table thead,
+.allUsers .table thead{
+  color: white;
+  background-color: var(--section-footer-color);
+}
+.allProducts .table td,
+.allUsers .table td {       
+  border-right: 1px solid var(--section-footer-color);
+}
+.allProductsNum .numbers .active,
+.allUsersNum .numbers .active {
+  border-radius: 6px;
+  background-color: var(--main-color);
+  color: white;
+}
+.fa-angles-right,
+.fa-angles-left {
+  color: var(--main-color);
+}
+/* End All Users  */
