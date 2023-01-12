@@ -70,7 +70,7 @@ class DataBase
     $query = "SELECT * FROM $table WHERE $whereCondition";
     $sql = $this->connection->prepare($query);
     $sql->execute();
-    $data = $sql->fetch(PDO::FETCH_ASSOC);
+    $data = $sql->fetchAll(PDO::FETCH_ASSOC);
     return $data;
   }
   public function update($table, $columnValues, $condition)
@@ -107,9 +107,33 @@ class DataBase
 if (strpos($_SERVER["HTTP_ORIGIN"], "javascript") == false) {
   header("Access-Control-Allow-Origin: " . $_SERVER["HTTP_ORIGIN"]);
 }
+$actual_link = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 $dataBase = new DataBase('mysql', 'localhost', 'coffee_db_project', 'root', '1234');
-$users = $dataBase->selectAll_Table('user');
-$users = json_encode($users);
-echo $users;
+if (str_contains($actual_link, 'all_users.php')) {
+  $users = $dataBase->selectAll_Table('user');
+  $users = json_encode($users);
+  echo $users;
+}
 
+// $divide = 0;
+// $cookie_number = 0;
+// for ($index = 0; $index < count($users); $index = $index + 16) {
+//   $multi_users = [];
+//   $divide++;
+//   if ($divide <= count($users) / 16) {
+//     for ($i = $index; $i < 16 + $index; $i++) {
+//       $multi_users[] = $users[$i];
+//     }
+//     $cookie_number++;
+//     $multi_users = json_encode($multi_users);
+//     setcookie("users$cookie_number", $multi_users);
+//   } else {
+//     for ($i = $index; $i < count($users); $i++) {
+//       $multi_users[] = $users[$i];
+//     }
+//     $cookie_number++;
+//     $multi_users = json_encode($multi_users);
+//     setcookie("users$cookie_number", $multi_users);
+//   }
+// }
 ?>

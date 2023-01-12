@@ -1,6 +1,6 @@
 :root {
   --main-color: #b68834;
-  --section-footer-color:#4f2b17;
+  --section-footer-color: #4f2b17;
 }
 * {
   -webkit-box-sizing: border-box;
@@ -12,9 +12,9 @@
 html {
   scroll-behavior: smooth;
 }
-img{
-  width: 40px;
-  height: 40px;
+.imageAdmin {
+  width: 50px;
+  height: 50px;
 }
 /* Start All Users  */
 .allProducts,
@@ -30,13 +30,37 @@ img{
   border: 1px solid var(--section-footer-color);
 }
 .allProducts .table thead,
-.allUsers .table thead{
+.allUsers .table thead {
   color: white;
   background-color: var(--section-footer-color);
 }
+.table tr {
+  height: 80px;
+}
+.allProducts .table th,
 .allProducts .table td,
-.allUsers .table td {       
+.allUsers .table th,
+.allUsers .table td {
   border-right: 1px solid var(--section-footer-color);
+  font-size: 20px;
+  vertical-align: middle;
+}
+@media (max-width: 576px) {
+  .allProducts,
+  .allUsers {
+    height: 600px;
+  }
+  .allProducts .table th,
+  .allProducts .table td,
+  .allUsers .table th,
+  .allUsers .table td {
+    font-size: 13px;
+  }
+}
+.allProducts img,
+.allUsers img {
+  width: 50px;
+  height: 50px;
 }
 .allProductsNum .numbers .active,
 .allUsersNum .numbers .active {

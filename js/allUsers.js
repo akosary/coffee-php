@@ -1,32 +1,5 @@
 let tbody = document.querySelector(".allUsers .table tbody");
 let number = document.querySelector(".allUsersNum .number2");
-let array = [
-  ["Tea", "5 EGP", "./img/g1.jpg"],
-  ["Tea2222222", "5 EGP", "./img/g1.jpg"],
-  ["Tea23332", "5 EGP", "./img/g1.jpg"],
-  ["4444", "4 EGP", "./img/g1.jpg"],
-  ["5555", "55 EGP", "./img/g1.jpg"],
-  ["6666", "55 EGP", "./img/g1.jpg"],
-  ["7777", "55 EGP", "./img/g1.jpg"],
-  ["888", "55 EGP", "./img/g1.jpg"],
-  ["999", "55 EGP", "./img/g1.jpg"],
-  ["10", "55 EGP", "./img/g1.jpg"],
-  ["11", "55 EGP", "./img/g1.jpg"],
-  ["12", "55 EGP", "./img/g1.jpg"],
-  ["13", "55 EGP", "./img/g1.jpg"],
-  ["14", "55 EGP", "./img/g1.jpg"],
-  ["15", "55 EGP", "./img/g1.jpg"],
-  ["16", "55 EGP", "./img/g1.jpg"],
-];
-let faceObject = {
-  Id: 11,
-  name: "Bowles",
-  email: "dbowles0@google.com.hk",
-  password: "VUGZxSuS",
-  imgPath: "./img/user_Images/1.jpg",
-  created_By_Admin: 4,
-  roomNumber: 160,
-};
 let data;
 async function usersData() {
   let url = "http://localhost:82/cafateria/coffee-php/php/all_users.php";
@@ -39,8 +12,6 @@ async function usersData() {
   return data;
 }
 usersData().then(() => {
-  console.log(data);
-  console.log(Object.keys(data[0]).length);
   let numberSlider = 1;
   for (let index = 0; index < data.length; index++) {
     let tr = document.createElement("tr");
