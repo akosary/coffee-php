@@ -64,6 +64,22 @@ class DataBase
     $allData = $sql->fetchAll(PDO::FETCH_ASSOC);
     return $allData;
   }
+  public function selectAll_NumberRow($table, $numberRows, $from)
+  {
+    $query = "SELECT * FROM $table LIMIT $numberRows OFFSET $from";
+    $sql = $this->connection->prepare($query);
+    $sql->execute();
+    $allData = $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $allData;
+  }
+  public function selectAll_NumberRecords($table)
+  {
+    $query = "SELECT count(*) as count FROM $table";
+    $sql = $this->connection->prepare($query);
+    $sql->execute();
+    $allData = $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $allData;
+  }
   public function selectAll_table_condition($table, $condition)
   {
     $whereCondition = condition($condition);
@@ -107,14 +123,18 @@ class DataBase
 if (strpos($_SERVER["HTTP_ORIGIN"], "javascript") == false) {
   header("Access-Control-Allow-Origin: " . $_SERVER["HTTP_ORIGIN"]);
 }
+// header("Access-Control-Allow-Origin: *");
+// if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+//   header("Access-Control-Allow-Headers: *");
+// }
 $actual_link = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 $dataBase = new DataBase('mysql', 'localhost', 'coffee_db_project', 'root', '1234');
 if (str_contains($actual_link, 'all_users.php')) {
-  $users = $dataBase->selectAll_Table('user');
+  $users = $dataBase->selectAll_NumberRow('user', 3, 0);
   $users = json_encode($users);
   echo $users;
 }
-
+// SELECT * FROM $table LIMIT 4, 10;
 // $divide = 0;
 // $cookie_number = 0;
 // for ($index = 0; $index < count($users); $index = $index + 16) {

@@ -2,20 +2,17 @@ let tbody = document.querySelector(".allProducts .table tbody");
 let number = document.querySelector(".allProductsNum .number2");
 let data;
 let edits = document.querySelector(".allProducts tbody");
+let url;
+url = "http://localhost:81/cafateria/coffee-php/php/all_products.php";
 async function productsData() {
-  let url = "http://localhost:82/cafateria/coffee-php/php/all_products.php";
   try {
     let response = await fetch(url);
     data = await response.json();
   } catch (error) {
     console.log(error);
   }
-}
-
-productsData().then(() => {
   let numberSlider = 1;
-  for (let index = 0; index < data.length; index++) {
-    let tr = document.createElement("tr");
+  for (let index = 0; index < data[0].count; index++) {
     let li = document.createElement("li");
     let numbers = document.createElement("a");
     if (!(index % 3)) {
@@ -24,6 +21,35 @@ productsData().then(() => {
       number.appendChild(li);
     }
     li.appendChild(numbers);
+  }
+  let liNumber = document.querySelectorAll(".allProductsNum .numbers li");
+  let rows = document.querySelectorAll(".allProducts .table tbody tr");
+  let numberRowsIsDisplay = 3;
+  liNumber[0].className = "active";
+  if (liNumber[0].classList.contains("active")) {
+    for (let index = 0; index < numberRowsIsDisplay; index++) {
+      rows[index].className = "displayActive";
+    }
+    edits = document.querySelectorAll(".displayActive .edit");
+  } else {
+    rows[index].className = "d-none";
+  }
+}
+postData(0);
+function postData(num) {
+  let res = fetch(url, {
+    method: "POST",
+    header: { "Content-type": "application/json; charset=UTE-8" },
+    body: JSON.stringify(num),
+  });
+  let data;
+  res.then((resp) => resp.text()).then((data) => console.log(data));
+  console.log(data);
+}
+productsData().then(() => {
+  for (let index = 0; index < data.length; index++) {
+    let tr = document.createElement("tr");
+    // li
     let td = document.createElement("td");
     td.innerHTML = `${data[index].name}`;
     tr.appendChild(td);
@@ -42,22 +68,6 @@ productsData().then(() => {
     tr.appendChild(td);
     tr.className = "d-none";
     tbody.appendChild(tr);
-  }
-  let span = document.createElement("span");
-  span.innerHTML = "...";
-  span.className = "fs-2 btn mt-auto";
-  number.appendChild(span);
-  let liNumber = document.querySelectorAll(".allProductsNum .numbers li");
-  let rows = document.querySelectorAll(".allProducts .table tbody tr");
-  let numberRowsIsDisplay = 3;
-  liNumber[0].className = "active";
-  if (liNumber[0].classList.contains("active")) {
-    for (let index = 0; index < numberRowsIsDisplay; index++) {
-      rows[index].className = "displayActive";
-    }
-    edits = document.querySelectorAll(".displayActive .edit");
-  } else {
-    rows[index].className = "d-none";
   }
 
   for (let index = 0; index < liNumber.length; index++) {
@@ -170,11 +180,6 @@ productsData().then(() => {
   });
   edits[0].addEventListener("click", (e) => {
     let tds = edits[0].parentElement.parentElement.children;
-    // if (tds[0].children[0] ) {
-
-    // } else {
-
-    // }
     e.preventDefault();
     let form = document.createElement("form");
     form.className = "row w-100 m-auto";
@@ -210,53 +215,53 @@ productsData().then(() => {
   // editMethod();
 });
 
-let editMethod = (edits) => {
-  let tds = edits.parentElement.parentElement.children;
-  let form = document.createElement("form");
-  let inputText = document.createElement("input");
-  form.method = "get";
-  inputText.type = "text";
-  inputText.className = "form-control";
-  inputText.name = "nameProduct";
-  inputText.defaultValue = `${tds[0].textContent}`;
-  tds[0].innerHTML = "";
-  form.appendChild(inputText);
-  let submit = document.createElement("input");
-  submit.type = "submit";
-  submit.value = "confirm";
-  submit.className = "genric-btn mt-2 info circle small";
-  form.appendChild(submit);
-  tds[0].appendChild(form);
-  form = document.createElement("form"); //////////////////////////
-  inputText = document.createElement("input");
-  form.method = "get";
-  inputText.type = "text";
-  inputText.className = "form-control";
-  inputText.name = "price";
-  inputText.defaultValue = `${tds[1].textContent}`;
-  tds[1].innerHTML = "";
-  form.appendChild(inputText);
-  submit = document.createElement("input");
-  submit.type = "submit";
-  submit.value = "confirm";
-  submit.className = "genric-btn mt-2 info circle small";
-  form.appendChild(submit);
-  tds[1].appendChild(form);
-  form = document.createElement("form"); ///////////////////////
-  inputText = document.createElement("input");
-  form.method = "get";
-  inputText.type = "file";
-  inputText.className = "form-control";
-  inputText.name = "image";
-  tds[2].innerHTML = "";
-  form.appendChild(inputText);
-  submit = document.createElement("input");
-  submit.type = "submit";
-  submit.value = "confirm";
-  submit.className = "genric-btn mt-2 info circle small";
-  form.appendChild(submit);
-  tds[2].appendChild(form);
-};
+// let editMethod = (edits) => {
+//   let tds = edits.parentElement.parentElement.children;
+//   let form = document.createElement("form");
+//   let inputText = document.createElement("input");
+//   form.method = "get";
+//   inputText.type = "text";
+//   inputText.className = "form-control";
+//   inputText.name = "nameProduct";
+//   inputText.defaultValue = `${tds[0].textContent}`;
+//   tds[0].innerHTML = "";
+//   form.appendChild(inputText);
+//   let submit = document.createElement("input");
+//   submit.type = "submit";
+//   submit.value = "confirm";
+//   submit.className = "genric-btn mt-2 info circle small";
+//   form.appendChild(submit);
+//   tds[0].appendChild(form);
+//   form = document.createElement("form"); //////////////////////////
+//   inputText = document.createElement("input");
+//   form.method = "get";
+//   inputText.type = "text";
+//   inputText.className = "form-control";
+//   inputText.name = "price";
+//   inputText.defaultValue = `${tds[1].textContent}`;
+//   tds[1].innerHTML = "";
+//   form.appendChild(inputText);
+//   submit = document.createElement("input");
+//   submit.type = "submit";
+//   submit.value = "confirm";
+//   submit.className = "genric-btn mt-2 info circle small";
+//   form.appendChild(submit);
+//   tds[1].appendChild(form);
+//   form = document.createElement("form"); ///////////////////////
+//   inputText = document.createElement("input");
+//   form.method = "get";
+//   inputText.type = "file";
+//   inputText.className = "form-control";
+//   inputText.name = "image";
+//   tds[2].innerHTML = "";
+//   form.appendChild(inputText);
+//   submit = document.createElement("input");
+//   submit.type = "submit";
+//   submit.value = "confirm";
+//   submit.className = "genric-btn mt-2 info circle small";
+//   form.appendChild(submit);
+//   tds[2].appendChild(form);
+// };
 // .then(() => {
 //   let Product = document.getElementById("addProduct");
 //   Product.addEventListener("click", () => {
