@@ -1,4 +1,5 @@
 <?php
+
 class DB 
 {
     private $sql;
@@ -125,9 +126,58 @@ class DB
             return 'Failed';
         }
     }
+
+    public function getOrdersByUserId($table_name,$column_name , $column_value){
+        $this->query = "SELECT Id , total_price , created_at FROM `orders` WHERE $column_name = $column_value";
+        // echo $this->query;
+        $this->sql= $this->con->prepare($this->query);
+        $this->sql->execute();
+        $indexes = $this->sql->fetchAll(PDO::FETCH_ASSOC);
+        if($indexes)
+        {
+            return $indexes;
+        }else
+        {
+            return ["failed"=>'Failed'];
+        }
+    }
+
+
+
+//$indexes[0]['product_id']
+
+    public function getOrderDetails($table_name,$column_name , $column_value ){
+        $this->query = "SELECT * FROM `$table_name` WHERE $column_name = $column_value";
+        // echo $this->query;
+        $this->sql= $this->con->prepare($this->query);
+        $this->sql->execute();
+        $indexes = $this->sql->fetchAll(PDO::FETCH_ASSOC);
+        if($indexes)
+        {
+            return $indexes;
+        }else
+        {
+            return ["failed"=>'Failed'];
+        }
+    }
+
+    public function getSingleUser($id)
+    {
+        $this->query = "SELECT user.Id, user.name , sum(total_price) AS 'Total' FROM `orders` INNER JOIN `user` WHERE user.Id=orders.id_user AND user.Id=$id GROUP BY user.name ORDER BY user.Id";
+        $this->sql= $this->con->prepare($this->query);
+        $this->sql->execute();
+        $index = $this->sql->fetchAll(PDO::FETCH_ASSOC);
+        if($index)
+        {
+            return $index;
+        }else
+        {
+            return ["failed"=>'Failed'];
+        }
+    }
 }
-
-
 $obj = new DB('mysql','localhost','coffee_db_project','root',1234);
+$userId= json_decode(file_get_contents("php://input"), true);
 
-echo json_encode($obj->selectTotalUserWithAmount());
+
+echo json_encode($obj->getSingleUser($userId));

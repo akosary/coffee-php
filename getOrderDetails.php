@@ -1,4 +1,5 @@
 <?php
+
 class DB 
 {
     private $sql;
@@ -125,9 +126,44 @@ class DB
             return 'Failed';
         }
     }
+
+    public function getOrdersByUserId($table_name,$column_name , $column_value){
+        $this->query = "SELECT Id , total_price , created_at FROM `orders` WHERE $column_name = $column_value";
+        // echo $this->query;
+        $this->sql= $this->con->prepare($this->query);
+        $this->sql->execute();
+        $indexes = $this->sql->fetchAll(PDO::FETCH_ASSOC);
+        if($indexes)
+        {
+            return $indexes;
+        }else
+        {
+            return ["failed"=>'Failed'];
+        }
+    }
+
+
+
+//$indexes[0]['product_id']
+
+    public function getOrderDetails($table_name,$column_name , $column_value ){
+        $this->query = "SELECT * FROM `$table_name` WHERE $column_name = $column_value";
+        // echo $this->query;
+        $this->sql= $this->con->prepare($this->query);
+        $this->sql->execute();
+        $indexes = $this->sql->fetchAll(PDO::FETCH_ASSOC);
+        if($indexes)
+        {
+            return $indexes;
+        }else
+        {
+            return ["failed"=>'Failed'];
+        }
+    }
 }
-
-
 $obj = new DB('mysql','localhost','coffee_db_project','root',1234);
 
-echo json_encode($obj->selectTotalUserWithAmount());
+$orderId= json_decode(file_get_contents("php://input"), true);
+// var_dump($orderId);
+
+echo json_encode($obj->getOrderDetails('cart','order_id',$orderId));
