@@ -88,6 +88,72 @@
         </div>
       </div>
     </section>
+    <!-- Form -->
+    <div class="container position-absolute w-50 p-2 d-none" id="form-popup">
+      <form class="row" method="post" id="formEdit">
+        <div class="col-6">
+          <label for="product" class="form-label">Product</label>
+          <input type="text" class="form-control" name="product" id="product" />
+          <p class="text-danger"></p>
+        </div>
+        <div class="col-6">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" name="price" id="price" />
+          <p class="text-danger"></p>
+        </div>
+        <div class="col-6 mb-3">
+          <label for="image" class="form-label">Image</label>
+          <input type="file" class="form-control" name="image" id="image" />
+          <p class="text-danger"></p>
+        </div>
+        <div class="col-6 mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select class="form-select" id="category" name="category"></select>
+        </div>
+        <div class="col-12 d-flex justify-content-around">
+          <input
+            type="submit"
+            class="btn btn-primary rounded-pill"
+            value="Change"
+            id="change"
+          />
+          <button type="button" class="btn cancel btn-danger" id="close">
+            Close
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- End Form -->
+    <!-- confirm -->
+    <!-- <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- End confirm -->
     <div class="container allProducts mt-5 h-md-100">
       <div class="d-flex justify-content-between">
         <h2>All Products</h2>
@@ -95,6 +161,11 @@
           >Add Product</a
         >
       </div>
+      <p
+        class="text-success m-0 text-center"
+        style="font-size: 20px; font-weight: bold"
+        id="success"
+      ></p>
       <table class="table mt-5 table-striped text-center">
         <thead>
           <tr>
@@ -105,54 +176,7 @@
           </tr>
         </thead>
 
-        <tbody>
-          <!-- <form method="get">
-            <tr>
-              <td>
-                <input
-                  type="text"
-                  class="form-control border-0 text-center bg-transparent"
-                  name="test"
-                  value="Lamb Rack Frenched Australian"
-                />
-              </td>
-              <td></td>
-              <td class="text-center">
-                <img src="./img/b1.jpg" alt="" />
-                <input type="file" class="form-control mt-2 d-none" />
-              </td>
-              <td><input type="submit"></td>
-            </tr>
-          </form> -->
-          <!-- <form method="get" class="displayActive">
-            <tr class="displayActive">
-              <td>
-                <input
-                  type="text"
-                  class="form-control border-0 text-center bg-transparent"
-                  name="nameProduct"
-                  value="Lamb Rack Frenched Australian"
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control border-0 text-center bg-transparent"
-                  name="price"
-                  value="6740"
-                />
-              </td>
-              <td><img src="./img/product_Images/1.jpg" /></td>
-              <td>
-                <a href="#" class="genric-btn mb-2 primary small circle"
-                  >avilable</a
-                ><br />
-                <a href="#" class="genric-btn info edit mb-1 circle">Edit</a>
-                <a href="#" class="genric-btn danger small circle">Delete</a>
-              </td>
-            </tr>
-          </form> -->
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
     <div class="container allProductsNum text-center mt-5">
@@ -246,7 +270,6 @@
                       type="text"
                     />
                   </div>
-
                   <div class="info pt-20"></div>
                 </form>
               </div>
@@ -268,7 +291,6 @@
       </div>
     </footer>
     <!-- End footer Area -->
-
     <script src="js/vendor/jquery-2.2.4.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -294,6 +316,12 @@
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"
       integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
+      integrity="sha512-wT7uPE7tOP6w4o28u1DN775jYjHQApdBnib5Pho4RB0Pgd9y7eSkAV1BTqQydupYDB9GBhTcQQzyNMPMV3cAew=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>

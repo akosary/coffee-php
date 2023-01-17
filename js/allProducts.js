@@ -1,16 +1,54 @@
 let tbody = document.querySelector(".allProducts .table tbody");
 let number = document.querySelector(".allProductsNum .number2");
-let data;
-let edits = document.querySelector(".allProducts tbody");
-let url;
-url = "http://localhost:81/cafateria/coffee-php/php/all_products.php";
-async function productsData() {
+let formPopup = document.getElementById("form-popup");
+let closeForm = document.getElementById("close");
+let select = document.getElementById("category");
+let change = document.getElementById("change");
+let product = document.getElementById("product");
+let price = document.getElementById("price");
+let image = document.getElementById("image");
+let success = document.getElementById("success");
+let stopFunction = 0;
+let myData, liNumber, rows, edits, doNotSend, switchAvailability, ableOrDisable;
+let rowsAlreadyGit = [];
+let mainInformation = [];
+let url = "http://localhost:81/cafateria/coffee-php/php/all_products.php";
+async function postData(num) {
+  let jsonData = num;
+  if (typeof num !== "string" || num === "count") {
+    jsonData = JSON.stringify(num);
+  }
+  if (rowsAlreadyGit.includes(num)) {
+    myData = 0;
+    return;
+  }
+  rowsAlreadyGit.push(num);
+  if (typeof num === "object") {
+    jsonData = num;
+  }
   try {
-    let response = await fetch(url);
-    data = await response.json();
+    let response = await fetch(url, {
+      method: "POST",
+      header: { "Content-type": "application/json; charset=UTE-8" },
+      body: jsonData,
+    });
+    myData = await response.json();
   } catch (error) {
     console.log(error);
   }
+}
+postData("count").then(() => {
+  if (stopFunction === 0) {
+    setSlideNumbersAndAllCategories(myData).then(() => {
+      createRows(myData);
+    });
+  }
+  OnclickSliderNumber();
+  rightActive();
+  leftActive();
+  marginRightAndLeft();
+});
+function setSlideNumbersAndAllCategories(data) {
   let numberSlider = 1;
   for (let index = 0; index < data[0].count; index++) {
     let li = document.createElement("li");
@@ -22,35 +60,29 @@ async function productsData() {
     }
     li.appendChild(numbers);
   }
-  let liNumber = document.querySelectorAll(".allProductsNum .numbers li");
-  let rows = document.querySelectorAll(".allProducts .table tbody tr");
-  let numberRowsIsDisplay = 3;
+  liNumber = document.querySelectorAll(".allProductsNum .numbers li");
   liNumber[0].className = "active";
-  if (liNumber[0].classList.contains("active")) {
-    for (let index = 0; index < numberRowsIsDisplay; index++) {
-      rows[index].className = "displayActive";
-    }
-    edits = document.querySelectorAll(".displayActive .edit");
-  } else {
-    rows[index].className = "d-none";
+  for (let index = 1; index < data.length; index++) {
+    let option = document.createElement("option");
+    option.value = data[index].id;
+    option.innerHTML = `${data[index].name}`;
+    select.appendChild(option);
   }
+  stopFunction = 1;
+  return postData(0);
 }
-postData(0);
-function postData(num) {
-  let res = fetch(url, {
-    method: "POST",
-    header: { "Content-type": "application/json; charset=UTE-8" },
-    body: JSON.stringify(num),
+function displayNoneOfRows() {
+  rows.forEach((element) => {
+    element.className = "d-none";
   });
-  let data;
-  res.then((resp) => resp.text()).then((data) => console.log(data));
-  console.log(data);
 }
-productsData().then(() => {
+function createRows(data) {
+  if (data === 0) return;
   for (let index = 0; index < data.length; index++) {
     let tr = document.createElement("tr");
-    // li
     let td = document.createElement("td");
+    td.dataset.id = `${data[index].Id}`;
+    td.dataset.category_id = `${data[index].category_id}`;
     td.innerHTML = `${data[index].name}`;
     tr.appendChild(td);
     td = document.createElement("td");
@@ -58,42 +90,151 @@ productsData().then(() => {
     tr.appendChild(td);
     td = document.createElement("td");
     let img = document.createElement("img");
+    if (data[index].imagePath.startsWith("..")) {
+      data[index].imagePath = data[index].imagePath.slice(1);
+    }
     img.src = `${data[index].imagePath}`;
     td.appendChild(img);
     tr.appendChild(td);
     td = document.createElement("td");
-    td.innerHTML = `<a href="#" class="genric-btn mb-2 primary small circle">${data[index].status}</a><br>
-        <button class="genric-btn info edit mb-1 circle">Edit</button>
-        <a href="#" class="genric-btn danger small circle">Delete</a>`;
+    let color;
+    if (data[index].status === "avilable") {
+      ableOrDisable = "unavelable";
+      color = "danger";
+    } else {
+      ableOrDisable = "avilable";
+      color = "btn-success";
+    }
+    td.innerHTML = `<p class="mb-1">${data[index].status}</p>
+          <button class="genric-btn info edit mb-1 circle">Edit</button>
+          <button class="genric-btn delete ${color} small circle">${ableOrDisable}</button>`;
     tr.appendChild(td);
-    tr.className = "d-none";
+    tr.className = "displayActive";
     tbody.appendChild(tr);
   }
-
+  edits = document.querySelectorAll(".displayActive .edit");
+  switchAvailability = document.querySelectorAll(".displayActive .delete");
+  rows = document.querySelectorAll(".allProducts .table tbody tr");
+  mainInformation.push(
+    rowsAlreadyGit[rowsAlreadyGit.length - 1],
+    rows.length - 3
+  );
+  activeFormEdit();
+  availability();
+}
+function OnclickSliderNumber() {
   for (let index = 0; index < liNumber.length; index++) {
     liNumber[index].addEventListener("click", () => {
-      for (let index = 0; index < liNumber.length; index++) {
-        liNumber[index].className = "";
-      }
+      displayNoneOfRows();
+      liNumber.forEach((element) => {
+        element.className = "";
+      });
       liNumber[index].className = "active";
-      for (let i = 0; i < rows.length; i++) {
-        rows[i].className = "d-none";
-      }
       if (liNumber[index].classList.contains("active")) {
         let start = index * 3;
-        if (index + 1 === liNumber.length) {
-          numberRowsIsDisplay = array.length - start;
-        } else {
-          numberRowsIsDisplay = 3;
-        }
-        for (let index = start; index < start + numberRowsIsDisplay; index++) {
-          rows[index].className = "displayActive";
-        }
-        edits = document.querySelectorAll(".displayActive .edit");
+        return postData(start).then(() => {
+          createRows(myData);
+          let cancel;
+          for (
+            let index = 0;
+            index < mainInformation.length && cancel !== 1;
+            index++
+          ) {
+            if (mainInformation[index] === start) {
+              start = mainInformation[index + 1];
+              cancel = 1;
+            }
+          }
+          for (let index = start; index < start + 3; index++) {
+            rows[index].className = "displayActive";
+          }
+          edits = document.querySelectorAll(".displayActive .edit");
+        });
       }
     });
   }
-
+}
+function rightActive() {
+  let anglesRight = document.querySelector(".allProductsNum .fa-angles-right");
+  let activeRight;
+  anglesRight.parentElement.addEventListener("click", () => {
+    for (let index = 0; index < liNumber.length; index++) {
+      if (liNumber[index].classList.contains("active")) {
+        activeRight = index;
+        if (index === liNumber.length - 1) {
+          activeRight = liNumber.length - 2;
+        }
+      }
+    }
+    liNumber.forEach((element) => {
+      element.className = "";
+    });
+    liNumber[activeRight + 1].className = "active";
+    displayNoneOfRows();
+    if (liNumber[activeRight + 1].classList.contains("active")) {
+      let start = (activeRight + 1) * 3;
+      return postData(start).then(() => {
+        createRows(myData);
+        let cancel;
+        for (
+          let index = 0;
+          index < mainInformation.length && cancel !== 1;
+          index++
+        ) {
+          if (mainInformation[index] === start) {
+            start = mainInformation[index + 1];
+            cancel = 1;
+          }
+        }
+        for (let index = start; index < start + 3; index++) {
+          rows[index].className = "displayActive";
+        }
+        edits = document.querySelectorAll(".displayActive .edit");
+      });
+    }
+  });
+}
+function leftActive() {
+  let anglesLeft = document.querySelector(".allProductsNum .fa-angles-left");
+  let activeLeft;
+  anglesLeft.parentElement.addEventListener("click", () => {
+    for (let index = 0; index < liNumber.length; index++) {
+      if (liNumber[index].classList.contains("active")) {
+        activeLeft = index;
+        if (index === 0) {
+          activeLeft = 1;
+        }
+      }
+    }
+    liNumber.forEach((element) => {
+      element.className = "";
+    });
+    liNumber[activeLeft - 1].className = "active";
+    displayNoneOfRows();
+    if (liNumber[activeLeft - 1].classList.contains("active")) {
+      let start = (activeLeft - 1) * 3;
+      return postData(start).then(() => {
+        createRows(myData);
+        let cancel;
+        for (
+          let index = 0;
+          index < mainInformation.length && cancel !== 1;
+          index++
+        ) {
+          if (mainInformation[index] === start) {
+            start = mainInformation[index + 1];
+            cancel = 1;
+          }
+        }
+        for (let index = start; index < start + 3; index++) {
+          rows[index].className = "displayActive";
+        }
+        edits = document.querySelectorAll(".displayActive .edit");
+      });
+    }
+  });
+}
+function marginRightAndLeft() {
   let chevronRight = document.querySelector(
     ".allProductsNum .fa-chevron-right"
   );
@@ -115,310 +256,146 @@ productsData().then(() => {
       click--;
     }
   });
-
-  let anglesRight = document.querySelector(".allProductsNum .fa-angles-right");
-  let activeRight;
-  anglesRight.parentElement.addEventListener("click", () => {
-    for (let index = 0; index < liNumber.length; index++) {
-      if (liNumber[index].classList.contains("active")) {
-        activeRight = index;
-        if (index === liNumber.length - 1) {
-          activeRight = liNumber.length - 2;
+}
+function noneForm() {
+  closeForm.addEventListener("click", () => {
+    formPopup.classList.add("d-none");
+  });
+}
+noneForm();
+function activeFormEdit() {
+  for (let index = 0; index < edits.length; index++) {
+    edits[index].addEventListener("click", (e) => {
+      let options = select.children;
+      let tds = edits[index].parentElement.parentElement.children;
+      product.defaultValue = tds[0].textContent;
+      product.dataset.id = tds[0].dataset.id;
+      price.defaultValue = tds[1].textContent;
+      loadXHR(tds[2].children[0].src).then(function (blob) {
+        image.files = uploadFileWithJavaScript(
+          tds[2].children[0].src,
+          blob
+        ).files;
+      });
+      for (let index = 0; index < options.length; index++) {
+        if (options[index].value === tds[0].dataset.category_id) {
+          options[index].setAttribute("selected", "");
+        } else {
+          options[index].removeAttribute("selected");
         }
       }
-    }
-    liNumber.forEach((element) => {
-      element.className = "";
+      formPopup.classList.remove("d-none");
+      formPopup.style = `top: ${e.pageY - e.pageY * 0.21}px;left: ${
+        e.pageX - e.pageX * 1.2
+      }px`;
     });
-    liNumber[activeRight + 1].className = "active";
-    rows.forEach((element) => {
-      element.className = "d-none";
-    });
-    if (liNumber[activeRight + 1].classList.contains("active")) {
-      let start = (activeRight + 1) * 3;
-      if (activeRight + 2 === liNumber.length) {
-        numberRowsIsDisplay = data.length - start;
-      } else {
-        numberRowsIsDisplay = 3;
-      }
-      for (let index = start; index < start + numberRowsIsDisplay; index++) {
-        rows[index].className = "displayActive";
-      }
-      edits = document.querySelectorAll(".displayActive .edit");
-    }
-  });
-  let anglesLeft = document.querySelector(".allProductsNum .fa-angles-left");
-  let activeLeft;
-  anglesLeft.parentElement.addEventListener("click", () => {
-    for (let index = 0; index < liNumber.length; index++) {
-      if (liNumber[index].classList.contains("active")) {
-        activeLeft = index;
-        if (index === 0) {
-          activeLeft = 1;
-        }
-      }
-    }
-    liNumber.forEach((element) => {
-      element.className = "";
-    });
-    liNumber[activeLeft - 1].className = "active";
-    rows.forEach((element) => {
-      element.className = "d-none";
-    });
-    if (liNumber[activeLeft - 1].classList.contains("active")) {
-      let start = (activeLeft - 1) * 3;
-      if (activeLeft - 2 === liNumber.length) {
-        numberRowsIsDisplay = array.length - start;
-      } else {
-        numberRowsIsDisplay = 3;
-      }
-      for (let index = start; index < start + numberRowsIsDisplay; index++) {
-        rows[index].className = "displayActive";
-      }
-      edits = document.querySelectorAll(".displayActive .edit");
-    }
-  });
-  edits[0].addEventListener("click", (e) => {
-    let tds = edits[0].parentElement.parentElement.children;
+  }
+}
+function formData() {
+  change.addEventListener("click", (e) => {
+    success.innerHTML = "";
+    validationForm();
+    doNotSend = 0;
     e.preventDefault();
-    let form = document.createElement("form");
-    form.className = "row w-100 m-auto";
-    form.method = "get";
-    for (let index = 0; index < 3; index++) {
-      let inputText = document.createElement("input");
-      inputText.type = index === 2 ? "file" : "text";
-      inputText.className = "form-control col-4 mb-3";
-      inputText.name =
-        index === 0 ? "nameProduct" : index === 1 ? "price" : "image";
-      inputText.defaultValue = `${tds[index].textContent}`;
-      tds[index].innerHTML = "";
-      form.appendChild(inputText);
+    if (doNotSend === 0) {
+      let formEdit = document.getElementById("formEdit");
+      let form_data = new FormData(formEdit);
+      form_data.append("id", product.dataset.id);
+      postData(form_data).then(() => {
+        if (myData === 1) {
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+          success.innerHTML = "Success";
+          formPopup.classList.add("d-none");
+        } else {
+          for (const key in myData) {
+            let input = document.querySelector(`input[name=${key}]`);
+            input.nextElementSibling.innerHTML = myData[key];
+          }
+        }
+      });
     }
-    tds[0].setAttribute("colspan", "3");
-    tds[2].remove();
-    tds[1].remove();
-    let submit = document.createElement("input");
-    submit.type = "submit";
-    submit.value = "confirm";
-    submit.className = "genric-btn info circle small m-auto";
-    form.appendChild(document.createElement("br"));
-    form.appendChild(submit);
-    tds[0].appendChild(form);
-    console.log("test");
-    console.log(e);
   });
-  // for (let index = 0; index < edits.length; index++) {
-  //   edits[index].addEventListener("click", () => {
-  //     editMethod(edits[index]);
-  //   });
-  // }
-  // editMethod();
-});
-
-// let editMethod = (edits) => {
-//   let tds = edits.parentElement.parentElement.children;
-//   let form = document.createElement("form");
-//   let inputText = document.createElement("input");
-//   form.method = "get";
-//   inputText.type = "text";
-//   inputText.className = "form-control";
-//   inputText.name = "nameProduct";
-//   inputText.defaultValue = `${tds[0].textContent}`;
-//   tds[0].innerHTML = "";
-//   form.appendChild(inputText);
-//   let submit = document.createElement("input");
-//   submit.type = "submit";
-//   submit.value = "confirm";
-//   submit.className = "genric-btn mt-2 info circle small";
-//   form.appendChild(submit);
-//   tds[0].appendChild(form);
-//   form = document.createElement("form"); //////////////////////////
-//   inputText = document.createElement("input");
-//   form.method = "get";
-//   inputText.type = "text";
-//   inputText.className = "form-control";
-//   inputText.name = "price";
-//   inputText.defaultValue = `${tds[1].textContent}`;
-//   tds[1].innerHTML = "";
-//   form.appendChild(inputText);
-//   submit = document.createElement("input");
-//   submit.type = "submit";
-//   submit.value = "confirm";
-//   submit.className = "genric-btn mt-2 info circle small";
-//   form.appendChild(submit);
-//   tds[1].appendChild(form);
-//   form = document.createElement("form"); ///////////////////////
-//   inputText = document.createElement("input");
-//   form.method = "get";
-//   inputText.type = "file";
-//   inputText.className = "form-control";
-//   inputText.name = "image";
-//   tds[2].innerHTML = "";
-//   form.appendChild(inputText);
-//   submit = document.createElement("input");
-//   submit.type = "submit";
-//   submit.value = "confirm";
-//   submit.className = "genric-btn mt-2 info circle small";
-//   form.appendChild(submit);
-//   tds[2].appendChild(form);
-// };
-// .then(() => {
-//   let Product = document.getElementById("addProduct");
-//   Product.addEventListener("click", () => {
-//     let form = document.createElement("form");
-//     form.appendChild(edits[0].parentElement.parentElement);
-//     edits[1].parentElement.parentElement.before(form);
-//   });
-// edits[0].addEventListener("click", () => {
-// });
-// });
-
-// let numberSlider = 1;
-// for (let index = 0; index < array.length; index++) {
-//   let tr = document.createElement("tr");
-//   let li = document.createElement("li");
-//   let numbers = document.createElement("a");
-//   if (!(index % 3)) {
-//     numbers.textContent = numberSlider++;
-//     numbers.className = "fs-2 btn ms-md-2 ms-lg-3";
-//     number.appendChild(li);
-//   }
-//   li.appendChild(numbers);
-//   for (let i = 0; i < array[index].length + 1; i++) {
-//     let td = document.createElement("td");
-//     td.innerHTML = `${array[index][i]}`;
-//     if (i == 2) {
-//       let img = document.createElement("img");
-//       img.src = `${array[index][i]}`;
-//       td.innerHTML = "";
-//       td.appendChild(img);
-//     } else if (i == 3) {
-//       td.innerHTML = `<a class="btn">Unavailable</a><br>
-//       <a class="btn">Edit</a>
-//       <a class="btn">Delete</a>`;
-//       td.className = "";
-//     }
-//     tr.appendChild(td);
-//   }
-//   tr.className = "d-none";
-//   tbody.appendChild(tr);
-// }
-// let span = document.createElement("span");
-// span.innerHTML = "...";
-// span.className = "fs-2 btn mt-auto";
-// number.appendChild(span);
-
-// let liNumber = document.querySelectorAll(".allProductsNum .numbers li");
-// let rows = document.querySelectorAll(".allProducts .table tbody tr");
-// let numberRowsIsDisplay = 3;
-// liNumber[0].className = "active";
-// if (liNumber[0].classList[0] == "active") {
-//   for (let index = 0; index < numberRowsIsDisplay; index++) {
-//     rows[index].className = "";
-//   }
-// } else {
-//   rows[index].className = "d-none";
-// }
-
-// for (let index = 0; index < liNumber.length; index++) {
-//   liNumber[index].addEventListener("click", () => {
-//     liNumber.forEach((element) => {
-//       element.className = "";
-//     });
-//     liNumber[index].className = "active";
-//     for (let i = 0; i < rows.length; i++) {
-//       rows[i].className = "d-none";
-//     }
-//     if (liNumber[index].classList[0] == "active") {
-//       let start = index * 3;
-//       if (index + 1 === liNumber.length) {
-//         numberRowsIsDisplay = array.length - start;
-//       } else {
-//         numberRowsIsDisplay = 3;
-//       }
-//       for (let index = start; index < start + numberRowsIsDisplay; index++) {
-//         rows[index].className = "";
-//       }
-//     }
-//   });
-// }
-
-// let chevronRight = document.querySelector(".allProductsNum .fa-chevron-right");
-// let chevronLeft = document.querySelector(".allProductsNum .fa-chevron-left");
-// let margin = -50;
-// let click = 1;
-// chevronRight.parentElement.addEventListener("click", (e) => {
-//   if (click <= liNumber.length / 3) {
-//     number.style = `margin-left: ${margin}px;`;
-//     margin = margin - 50;
-//     click++;
-//   }
-// });
-// let margin2 = 50;
-// chevronLeft.parentElement.addEventListener("click", (e) => {
-//   if (click > 1) {
-//     liNumber[0].style = `margin-left: ${margin2}px;`;
-//     margin2 = margin2 + 50;
-//     click--;
-//   }
-// });
-// let anglesRight = document.querySelector(".allProductsNum .fa-angles-right");
-// let activeRight;
-// anglesRight.parentElement.addEventListener("click", () => {
-//   for (let index = 0; index < liNumber.length; index++) {
-//     if (liNumber[index].classList.contains("active")) {
-//       activeRight = index;
-//       if (index === liNumber.length - 1) {
-//         activeRight = liNumber.length - 2;
-//       }
-//     }
-//   }
-//   liNumber.forEach((element) => {
-//     element.className = "";
-//   });
-//   liNumber[activeRight + 1].className = "active";
-//   rows.forEach((element) => {
-//     element.className = "d-none";
-//   });
-//   if (liNumber[activeRight + 1].classList.contains("active")) {
-//     let start = (activeRight + 1) * 3;
-//     if (activeRight + 2 === liNumber.length) {
-//       numberRowsIsDisplay = array.length - start;
-//     } else {
-//       numberRowsIsDisplay = 3;
-//     }
-//     for (let index = start; index < start + numberRowsIsDisplay; index++) {
-//       rows[index].className = "";
-//     }
-//   }
-// });
-// let anglesLeft = document.querySelector(".allProductsNum .fa-angles-left");
-// let activeLeft;
-// anglesLeft.parentElement.addEventListener("click", () => {
-//   for (let index = 0; index < liNumber.length; index++) {
-//     if (liNumber[index].classList.contains("active")) {
-//       activeLeft = index;
-//       if (index === 0) {
-//         activeLeft = 1;
-//       }
-//     }
-//   }
-//   liNumber.forEach((element) => {
-//     element.className = "";
-//   });
-//   liNumber[activeLeft - 1].className = "active";
-//   rows.forEach((element) => {
-//     element.className = "d-none";
-//   });
-//   if (liNumber[activeLeft - 1].classList.contains("active")) {
-//     let start = (activeLeft - 1) * 3;
-//     if (activeLeft - 2 === liNumber.length) {
-//       numberRowsIsDisplay = array.length - start;
-//     } else {
-//       numberRowsIsDisplay = 3;
-//     }
-//     for (let index = start; index < start + numberRowsIsDisplay; index++) {
-//       rows[index].className = "";
-//     }
-//   }
-// });
+}
+formData();
+function availability() {
+  for (let index = 0; index < switchAvailability.length; index++) {
+    switchAvailability[index].addEventListener("click", () => {
+      let status =
+        switchAvailability[index].previousElementSibling.previousElementSibling;
+      status.textContent === "avilable"
+        ? (ableOrDisable = "unavelable")
+        : (ableOrDisable = "avilable");
+      let message = confirm(
+        `Do you really want to ${ableOrDisable} this product?`
+      );
+      if (message) {
+        let id =
+          switchAvailability[index].parentElement.parentElement.children[0]
+            .dataset.id;
+        postData(JSON.stringify({ id: id, status: ableOrDisable })).then(() => {
+          if (myData === 1) {
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+            success.innerHTML = "Success";
+          }
+        });
+      }
+    });
+  }
+}
+function validationForm() {
+  doNotSend = 0;
+  product.addEventListener("keypress", () => {
+    product.nextElementSibling.innerHTML = "";
+  });
+  price.addEventListener("keypress", () => {
+    price.nextElementSibling.innerHTML = "";
+  });
+  if (!/(\w+)/.test(product.value)) {
+    product.nextElementSibling.innerHTML = "Error: No Product";
+    doNotSend = 1;
+  }
+  if (!/([1-9]+)/.test(price.value)) {
+    price.nextElementSibling.innerHTML = "Error: The price is unacceptable";
+    doNotSend = 1;
+  }
+  if (!image.value) {
+    image.nextElementSibling.innerHTML = "Error: Please Add Image Product";
+    doNotSend = 1;
+  }
+  return doNotSend;
+}
+function loadXHR(url) {
+  return new Promise(function (resolve, reject) {
+    try {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.responseType = "blob";
+      xhr.onerror = function () {
+        reject("Network error.");
+      };
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          resolve(xhr.response);
+        } else {
+          reject("Loading error:" + xhr.statusText);
+        }
+      };
+      xhr.send();
+    } catch (err) {
+      reject(err.message);
+    }
+  });
+}
+let uploadFileWithJavaScript = (source, blob) => {
+  let file = new File([blob], source, {
+    type: "image/jpeg",
+    lastModified: new Date().getTime(),
+  });
+  let container = new DataTransfer();
+  container.items.add(file);
+  return container;
+};

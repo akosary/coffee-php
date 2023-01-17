@@ -120,6 +120,8 @@ class DataBase
     return $sql->execute();
   }
 }
+
+
 if (strpos($_SERVER["HTTP_ORIGIN"], "javascript") == false) {
   header("Access-Control-Allow-Origin: " . $_SERVER["HTTP_ORIGIN"]);
 }
@@ -134,26 +136,4 @@ if (str_contains($actual_link, 'all_users.php')) {
   $users = json_encode($users);
   echo $users;
 }
-// SELECT * FROM $table LIMIT 4, 10;
-// $divide = 0;
-// $cookie_number = 0;
-// for ($index = 0; $index < count($users); $index = $index + 16) {
-//   $multi_users = [];
-//   $divide++;
-//   if ($divide <= count($users) / 16) {
-//     for ($i = $index; $i < 16 + $index; $i++) {
-//       $multi_users[] = $users[$i];
-//     }
-//     $cookie_number++;
-//     $multi_users = json_encode($multi_users);
-//     setcookie("users$cookie_number", $multi_users);
-//   } else {
-//     for ($i = $index; $i < count($users); $i++) {
-//       $multi_users[] = $users[$i];
-//     }
-//     $cookie_number++;
-//     $multi_users = json_encode($multi_users);
-//     setcookie("users$cookie_number", $multi_users);
-//   }
-// }
 ?>
