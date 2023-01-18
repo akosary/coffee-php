@@ -53,5 +53,4 @@ db.posts.aggregate([
   { $limit: 1 },
 ]);
 
-// // To get the posts whose author is from Egypt, you can use the MongoDB command
-//  `db.posts.aggregate([{$lookup:{from
+
