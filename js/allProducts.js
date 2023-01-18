@@ -294,8 +294,7 @@ function activeFormEdit() {
 function formData() {
   change.addEventListener("click", (e) => {
     success.innerHTML = "";
-    validationForm();
-    doNotSend = 0;
+    doNotSend = validationForm();
     e.preventDefault();
     if (doNotSend === 0) {
       let formEdit = document.getElementById("formEdit");

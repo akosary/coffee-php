@@ -132,8 +132,65 @@ if (strpos($_SERVER["HTTP_ORIGIN"], "javascript") == false) {
 $actual_link = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 $dataBase = new DataBase('mysql', 'localhost', 'coffee_db_project', 'root', '1234');
 if (str_contains($actual_link, 'all_users.php')) {
-  $users = $dataBase->selectAll_NumberRow('user', 3, 0);
-  $users = json_encode($users);
-  echo $users;
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+  $response = $data;
+  $sourceImage = false;
+  if ($response == "count") {
+    $numberUsers = $dataBase->selectAll_NumberRecords('user');
+    $numberUsers = json_encode($numberUsers);
+    echo $numberUsers;
+  } elseif ($response === null) {
+    $errors = [];
+    foreach ($_REQUEST as $key => $value) {
+      if (empty($value)) {
+        $errors[$key] = "$key is required";
+      }
+    }
+    validImageUser();
+    if ($errors) {
+      echo json_encode($errors);
+    } else {
+      $result = $dataBase->update(
+        'user',
+        [
+          "name" => $_REQUEST['fullName'],
+          "roomNumber" => $_REQUEST['roomNumber'],
+          "imgPath" => $sourceImage
+        ],
+        ['id' => $_REQUEST['id']]
+      );
+      echo $result;
+    }
+  } elseif (gettype($response) === 'array') {
+    $result = $dataBase->delete(
+      'user',
+      ['id' => $response['id']]
+    );
+    echo $result;
+    // print_r($response);
+  } else {
+    $users = $dataBase->selectAll_NumberRow('user', 3, $response);
+    $users = json_encode($users);
+    echo $users;
+  }
+}
+function validImageUser()
+{
+  global $errors;
+  $mime_type = explode('/', $_FILES["image"]['type'])[1];
+  $arrImages = ["png", "jpg", "jpeg"];
+  if ($_FILES["image"]['size'] == 0) {
+    $errors["image"] = "Error : Please Enter Product Image ..";
+  } else if ($_FILES["image"]['size'] > 1024 * 1024) {
+    $errors["image"] = 'Error : size of image must be maximum 1 mega';
+  } else if (!in_array($mime_type, $arrImages)) {
+    $errors["image"] = 'please upload png or jpg or jpeg';
+  } else {
+    $fileName = time() . '.' . $mime_type;
+    move_uploaded_file($_FILES["image"]['tmp_name'], '../img/upload/' . $fileName);
+    global $sourceImage;
+    $sourceImage = '../img/upload/' . $fileName;
+  }
 }
 ?>
