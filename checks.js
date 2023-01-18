@@ -1,12 +1,12 @@
 let UserUrl = "http://localhost/checks.php";
 let OrderUrl = "http://localhost/getOrdersByUserId.php";
 let getUserUrl = "http://localhost/getSingleUser.php";
+let getUsersByDateUrl = "http://localhost/getUsersByDate.php";
 let users= [];
 
 async function getDataFromResponse(url){
     let res = await fetch(url);
     let data =await res.json();
-    // console.log(data);
     users=data;
     return data;
 }
@@ -47,10 +47,36 @@ getDataFromResponse(UserUrl).then(
     }
 );
 
-function print(){
-    let d = document.getElementById("dateFrom").value;
-    console.log(d + ' 00:00:00');
-}
+function searchByDate(){
+    let from = `${document.getElementById("dateFrom").value} 00:00:00`;
+    let to = `${document.getElementById("dateTo").value} 00:00:00`;
+    let arrOfDate = {"from" : from,"to": to};
+    user_tbody.innerHTML="";
+    fetch(getUsersByDateUrl,{
+        method: "post",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(arrOfDate)
+        }).then((response)=>{
+            return response.json();
+        }).then((Data)=>{
+            for(const key in Data){
+                if( Data['result'] == 'Failed'){
+                    return;
+                }else{
+                    let obj = Data[key];
+                    let row = user_tbody.insertRow(-1);
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    let cell3 = row.insertCell(2);
+                    cell1.innerHTML =`<button onClick="postUserIdUserFiled(${obj.Id})"> ${obj.Id}</button>`;
+                    cell2.innerHTML = obj.name;
+                    cell3.innerHTML = obj.Total;
+                }
+            }
+        })
+};
 
 function userSearch(){
     old_tbody.innerHTML="";
@@ -98,9 +124,8 @@ function userSearch(){
 function postUserIdUserFiled(id){
     postUserId(OrderUrl,id,old_tbody);
 }
-let orderData;
 
-// let old_tbody = document.getElementById("orderThead");
+let orderData;
 function postUserId(url ,id,destination ){
     destination.innerHTML = "";
     let user = id;
