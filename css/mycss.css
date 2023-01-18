@@ -1,6 +1,5 @@
 header{
-background-color: red;
-    /* background: rgba(20, 2, 0, 0.8); */
+background: rgba(20, 2, 0, 0.8);
 }
 #a1{
     margin-left: -350px;
@@ -13,8 +12,41 @@ margin-right: -140px;
 }
 .sec1{
     margin-top: 200px;
-    margin-left: 200px;
+    margin-left: 50px;
 }
 tr,td,th{
     padding: 20px;
 }
+#totalbtn
+{
+    margin-left: 1000px;
+
+}
+
+.sec2{
+margin-left:50px ;
+margin-top: 200px;
+
+}
+#reset{
+
+    margin-left: 200px;
+}
+.dropdown{
+    margin-left: 100px;
+}
+.dropdown-menu {
+    max-height: 250px;
+    max-width: 420px;
+    overflow-y: auto;
+}
+#cat{
+    margin-top: -25px;
+    margin-left: 370px;
+    position: absolute;
+}
+.sec3{
+    margin-left:50px ;
+    margin-top: 200px;
+    
+    }
