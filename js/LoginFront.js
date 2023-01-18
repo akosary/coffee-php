@@ -17,9 +17,9 @@ loginform.addEventListener("submit", (e) => {
       "Error: Your Email Dosen't Match Formatting (abc@yahoo.com)";
     e.preventDefault();
   }
-  if (!/^[0-9]{4,8}$/.test(Password1.value)) {
+  if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(Password1.value)) {
     Password1.nextElementSibling.innerHTML =
-      "Error: Your Password Doesn't Match Formatting (********...)";
+      "Error: Your Password Doesn't Match Formatting (Like : Testing22@fgh#......)";
     e.preventDefault();
   }
 });

@@ -32,7 +32,7 @@ else
 
 //validation for email and password for user and redirect for users page
 $email=$_REQUEST['email'];
-$password=$_REQUEST ['password'];
+$password=sha1($_REQUEST ['password']);
 $query = " SELECT * from user where email = :email  and password = :password  ";
 $sql = $con->prepare($query);
 $sql->bindParam('email', $email);

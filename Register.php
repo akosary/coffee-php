@@ -63,11 +63,11 @@ else
 
 
 //validate password and redirect with error massage
-$password_pattern = '/^[0-9]{4,8}$/';
+$password_pattern = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/';
 $Password=$_REQUEST ['password'];
 if (!preg_match($password_pattern,$Password))   //return true if valid password and false if not valid 
 {
-    setcookie('errors', json_encode(['password' => 'Error: Your Password does not match Formatting (********...)']));
+    setcookie('errors', json_encode(['password' => 'Error: Your Password does not match Formatting (Testing22@fgh#...)']));
     header('Location:register.html');
     exit();
 } 
@@ -192,6 +192,7 @@ else
 //////////////////////////////////// Insert data into database ////////////////////////////////////
 
 //md5 sha1                                             //to encrypt password
+$Password=sha1($_REQUEST ['password']);
 $query = "INSERT INTO user (`name`,`email`,`password`,`imgPath` ,`roomNumber`) VALUES ('$Name','$email','$Password','$Path_img' ,'$roomNumber')";
 $sql = $con->prepare($query);
 $result = $sql->execute();
@@ -206,8 +207,11 @@ else
 
 
 
-// //select room query
-// $query = "SELECT id FROM room ;
-// $sql = $con->prepare($query);
-// $result = $sql->execute();
-// $data = $sql->fetchall(PDO::FETCH_ASSOC);
+
+
+//select room query
+$query = "SELECT id FROM room ;
+$sql = $con->prepare($query);
+$result = $sql->execute();
+$data = $sql->fetchall(PDO::FETCH_ASSOC);
+echo json_encode($data);
