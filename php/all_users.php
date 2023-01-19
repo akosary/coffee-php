@@ -138,8 +138,9 @@ if (str_contains($actual_link, 'all_users.php')) {
   $sourceImage = false;
   if ($response == "count") {
     $numberUsers = $dataBase->selectAll_NumberRecords('user');
-    $numberUsers = json_encode($numberUsers);
-    echo $numberUsers;
+    $roomNumber = $dataBase->selectAll_Table('room');
+    $numberUsersAndRoomNumber = json_encode(array_merge($numberUsers, $roomNumber));
+    echo $numberUsersAndRoomNumber;
   } elseif ($response === null) {
     $errors = [];
     foreach ($_REQUEST as $key => $value) {

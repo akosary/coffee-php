@@ -2,7 +2,9 @@ let formPopup = document.getElementById("form-popup");
 let closeForm = document.getElementById("close");
 let change = document.getElementById("change");
 let fullName = document.getElementById("fullName");
-let roomNumber = document.getElementById("roomNumber");
+// let roomNumber = document.getElementById("roomNumber");
+let select = document.getElementById("roomNumber");
+
 let image = document.getElementById("image");
 let tbody = document.querySelector(".allUsers .table tbody");
 let number = document.querySelector(".allUsersNum .number2");
@@ -61,6 +63,12 @@ function setSlideNumbers(data) {
   }
   liNumber = document.querySelectorAll(".allUsersNum .numbers li");
   liNumber[0].className = "active";
+  for (let index = 1; index < data.length; index++) {
+    let option = document.createElement("option");
+    option.value = data[index].id;
+    option.innerHTML = `${data[index].id} ${data[index].description}`;
+    select.appendChild(option);
+  }
   stopFunction = 1;
   return postData(0);
 }
@@ -246,16 +254,24 @@ noneForm();
 function activeFormEdit() {
   for (let index = 0; index < edits.length; index++) {
     edits[index].addEventListener("click", (e) => {
+      let options = select.children;
       let tds = edits[index].parentElement.parentElement.children;
       fullName.defaultValue = tds[0].textContent;
       fullName.dataset.id = tds[0].dataset.id;
-      roomNumber.defaultValue = tds[1].textContent;
+      // roomNumber.defaultValue = tds[1].textContent;
       loadXHR(tds[2].children[0].src).then(function (blob) {
         image.files = uploadFileWithJavaScript(
           tds[2].children[0].src,
           blob
         ).files;
       });
+      for (let index = 0; index < options.length; index++) {
+        if (options[index].value === tds[1].textContent) {
+          options[index].setAttribute("selected", "");
+        } else {
+          options[index].removeAttribute("selected");
+        }
+      }
       formPopup.classList.remove("d-none");
       formPopup.style = `top: ${e.pageY - e.pageY * 0.21}px;left: ${
         e.pageX - e.pageX * 1.2
@@ -313,16 +329,16 @@ function validationForm() {
   fullName.addEventListener("keypress", () => {
     fullName.nextElementSibling.innerHTML = "";
   });
-  roomNumber.addEventListener("keypress", () => {
-    roomNumber.nextElementSibling.innerHTML = "";
+  select.addEventListener("keypress", () => {
+    select.nextElementSibling.innerHTML = "";
   });
   doNotSend = 0;
   if (!/(\w+)/.test(fullName.value)) {
     fullName.nextElementSibling.innerHTML = "Error: No Full Name";
     doNotSend = 1;
   }
-  if (!/([1-9]+)/.test(roomNumber.value)) {
-    roomNumber.nextElementSibling.innerHTML =
+  if (!/([1-9]+)/.test(select.value)) {
+    select.nextElementSibling.innerHTML =
       "Error: The Room Number is unacceptable";
     doNotSend = 1;
   }
