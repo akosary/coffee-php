@@ -13,7 +13,7 @@ let rows = 0;
 let myData, liNumber, edits, doNotSend, switchAvailability, ableOrDisable;
 let rowsAlreadyGit = [];
 let mainInformation = [];
-let url = "http://localhost:81/cafateria/coffee-php/php/all_products.php";
+let url = "http://localhost:81/coffee-php/php/all_products.php";
 async function postData(num) {
   let jsonData = num;
   if (typeof num !== "string" || num === "count") {
