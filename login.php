@@ -29,6 +29,24 @@ else
     setcookie('errors','', time() - 60);                   
 }
 
+//validation for email and password for admin and redirect for admin page
+$email=$_REQUEST['email'];
+$password=$_REQUEST ['password'];
+$query = " SELECT * from admin where email = :email  and password = :password  ";
+$sql = $con->prepare($query);
+$sql->bindParam('email', $email);
+$sql->bindParam('password', $password);                     //to prevent injection to database..
+$sql->execute();
+$admin = $sql->fetch();
+
+if ($admin)                                                 //if return only one admin
+{
+    // login to admin page
+    header('Location:index.html');                   //just for experiement
+    exit();
+}
+
+
 
 //validation for email and password for user and redirect for users page
 $email=$_REQUEST['email'];
@@ -46,23 +64,11 @@ if ($user)                                                 //if return only one 
     header('Location:index.html');
     exit();
 }
-
-//validation for email and password for admin and redirect for admin page
-$query = " SELECT * from admin where email = :email  and password = :password  ";
-$sql = $con->prepare($query);
-$sql->bindParam('email', $email);
-$sql->bindParam('password', $password);                     //to prevent injection to database..
-$sql->execute();
-$admin = $sql->fetch();
-
-if ($admin)                                                 //if return only one admin
-{
-    // login to admin page
-    header('Location:index.html');                   //just for experiement
-    exit();
-}
 else 
 {
-    header('Location:Login.html');
+    header('Location:forgetPassword.html');
     exit();
 }
+
+
+
