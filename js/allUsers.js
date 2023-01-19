@@ -56,7 +56,7 @@ function setSlideNumbers(data) {
     let numbers = document.createElement("a");
     if (!(index % 3)) {
       numbers.textContent = numberSlider++;
-      numbers.className = "fs-2 btn";
+      numbers.className = "fs-4 btn";
       number.appendChild(li);
     }
     li.appendChild(numbers);
@@ -132,13 +132,14 @@ function OnclickSliderNumber() {
             index < mainInformation.length && cancel !== 1;
             index++
           ) {
-            if (mainInformation[index] === start) {
+            if (mainInformation[index] === start && !(index % 2)) {
               start = mainInformation[index + 1];
+              displayNoneOfRows();
+              for (let index = start; index < start + 3; index++) {
+                rows[index].className = "displayActive";
+              }
               cancel = 1;
             }
-          }
-          for (let index = start; index < start + 3; index++) {
-            rows[index].className = "displayActive";
           }
           edits = document.querySelectorAll(".displayActive .edit");
         });
@@ -173,13 +174,14 @@ function rightActive() {
           index < mainInformation.length && cancel !== 1;
           index++
         ) {
-          if (mainInformation[index] === start) {
+          if (mainInformation[index] === start && !(index % 2)) {
             start = mainInformation[index + 1];
+            displayNoneOfRows();
+            for (let index = start; index < start + 3; index++) {
+              rows[index].className = "displayActive";
+            }
             cancel = 1;
           }
-        }
-        for (let index = start; index < start + 3; index++) {
-          rows[index].className = "displayActive";
         }
         edits = document.querySelectorAll(".displayActive .edit");
       });
@@ -211,13 +213,14 @@ function leftActive() {
           index < mainInformation.length && cancel !== 1;
           index++
         ) {
-          if (mainInformation[index] === start) {
+          if (mainInformation[index] === start && !(index % 2)) {
             start = mainInformation[index + 1];
+            displayNoneOfRows();
+            for (let index = start; index < start + 3; index++) {
+              rows[index].className = "displayActive";
+            }
             cancel = 1;
           }
-        }
-        for (let index = start; index < start + 3; index++) {
-          rows[index].className = "displayActive";
         }
         edits = document.querySelectorAll(".displayActive .edit");
       });

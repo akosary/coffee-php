@@ -9,7 +9,8 @@ let price = document.getElementById("price");
 let image = document.getElementById("image");
 let success = document.getElementById("success");
 let stopFunction = 0;
-let myData, liNumber, rows, edits, doNotSend, switchAvailability, ableOrDisable;
+let rows = 0;
+let myData, liNumber, edits, doNotSend, switchAvailability, ableOrDisable;
 let rowsAlreadyGit = [];
 let mainInformation = [];
 let url = "http://localhost:81/cafateria/coffee-php/php/all_products.php";
@@ -55,7 +56,7 @@ function setSlideNumbersAndAllCategories(data) {
     let numbers = document.createElement("a");
     if (!(index % 3)) {
       numbers.textContent = numberSlider++;
-      numbers.className = "fs-2 btn";
+      numbers.className = "fs-4 btn";
       number.appendChild(li);
     }
     li.appendChild(numbers);
@@ -78,6 +79,7 @@ function displayNoneOfRows() {
 }
 function createRows(data) {
   if (data === 0) return;
+  if (rows !== 0) displayNoneOfRows();
   for (let index = 0; index < data.length; index++) {
     let tr = document.createElement("tr");
     let td = document.createElement("td");
@@ -103,11 +105,11 @@ function createRows(data) {
       color = "danger";
     } else {
       ableOrDisable = "avilable";
-      color = "btn-success";
+      color = "success";
     }
     td.innerHTML = `<p class="mb-1">${data[index].status}</p>
           <button class="genric-btn info edit mb-1 circle">Edit</button>
-          <button class="genric-btn delete ${color} small circle">${ableOrDisable}</button>`;
+          <button class="genric-btn delete small circle ${color}">${ableOrDisable}</button>`;
     tr.appendChild(td);
     tr.className = "displayActive";
     tbody.appendChild(tr);
@@ -140,13 +142,14 @@ function OnclickSliderNumber() {
             index < mainInformation.length && cancel !== 1;
             index++
           ) {
-            if (mainInformation[index] === start) {
+            if (mainInformation[index] === start && !(index % 2)) {
               start = mainInformation[index + 1];
+              displayNoneOfRows();
+              for (let index = start; index < start + 3; index++) {
+                rows[index].className = "displayActive";
+              }
               cancel = 1;
             }
-          }
-          for (let index = start; index < start + 3; index++) {
-            rows[index].className = "displayActive";
           }
           edits = document.querySelectorAll(".displayActive .edit");
         });
@@ -181,13 +184,14 @@ function rightActive() {
           index < mainInformation.length && cancel !== 1;
           index++
         ) {
-          if (mainInformation[index] === start) {
+          if (mainInformation[index] === start && !(index % 2)) {
             start = mainInformation[index + 1];
+            displayNoneOfRows();
+            for (let index = start; index < start + 3; index++) {
+              rows[index].className = "displayActive";
+            }
             cancel = 1;
           }
-        }
-        for (let index = start; index < start + 3; index++) {
-          rows[index].className = "displayActive";
         }
         edits = document.querySelectorAll(".displayActive .edit");
       });
@@ -221,13 +225,14 @@ function leftActive() {
           index < mainInformation.length && cancel !== 1;
           index++
         ) {
-          if (mainInformation[index] === start) {
+          if (mainInformation[index] === start && !(index % 2)) {
             start = mainInformation[index + 1];
+            displayNoneOfRows();
+            for (let index = start; index < start + 3; index++) {
+              rows[index].className = "displayActive";
+            }
             cancel = 1;
           }
-        }
-        for (let index = start; index < start + 3; index++) {
-          rows[index].className = "displayActive";
         }
         edits = document.querySelectorAll(".displayActive .edit");
       });

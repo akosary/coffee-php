@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Favicon-->
-    <link rel="shortcut icon" href="img/elements/fav.png" />
+    <link rel="shortcut icon" href="./img/play-icon.png" />
     <!-- Author Meta -->
     <meta name="author" content="colorlib" />
     <!-- Meta Description -->
@@ -31,14 +31,13 @@
     <link rel="stylesheet" href="css/nice-select.css" />
     <link rel="stylesheet" href="css/magnific-popup.css" />
     <link rel="stylesheet" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <!-- <link
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
-    /> -->
+    />
     <link rel="stylesheet" href="css/allProductsAndUsers.css" />
   </head>
   <body>
@@ -58,7 +57,10 @@
               <li>
                 <div class="imageAdmin">
                   <a class="navbar-brand" href="#"
-                    ><img src="./img/g1.jpg" class="mw-100 rounded-circle" />
+                    ><img
+                      src="./img/admin_Images/1.jpg"
+                      class="mw-100 rounded-circle"
+                    />
                   </a>
                   <a href="#" class="navbar-brand">
                     <span class="ms-1">Admin</span>
@@ -89,8 +91,11 @@
       </div>
     </section>
     <!-- Form -->
-    <div class="container position-absolute w-50 p-2 d-none" id="form-popup">
-      <form class="row" method="post" id="formEdit">
+    <div
+      class="container position-absolute rounded-pill p-3 d-none"
+      id="form-popup"
+    >
+      <form class="row fs-6" method="post" id="formEdit">
         <div class="col-6">
           <label for="fullName" class="form-label">Full Name</label>
           <input
@@ -110,55 +115,29 @@
           ></select>
           <p class="text-danger"></p>
         </div>
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-1">
           <label for="image" class="form-label">Image</label>
           <input type="file" class="form-control" name="image" id="image" />
           <p class="text-danger"></p>
         </div>
-        <div class="col-12 d-flex justify-content-around">
+        <div class="col-12 d-flex justify-content-around mb-2">
           <input
             type="submit"
             class="btn btn-primary rounded-pill"
             value="Change"
             id="change"
           />
-          <button type="button" class="btn cancel btn-danger" id="close">
+          <button
+            type="button"
+            class="btn cancel btn-danger rounded-pill"
+            id="close"
+          >
             Close
           </button>
         </div>
       </form>
     </div>
     <!-- End Form -->
-    <!-- confirm -->
-    <!-- <div class="modal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button
-              type="button"
-              clfass="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>Modal body text goes here.</p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- End confirm -->
     <div class="container allUsers mt-5 h-md-100">
       <div class="d-flex justify-content-between">
         <h2>All Users</h2>
@@ -178,7 +157,6 @@
             <th>Action</th>
           </tr>
         </thead>
-
         <tbody></tbody>
       </table>
     </div>
@@ -187,12 +165,12 @@
         class="d-flex justify-content-center align-items-center list-unstyled"
       >
         <li>
-          <a class="fs-3 btn m-lg-3 d-block"
+          <a class="fs-4 btn m-lg-3 d-block"
             ><i class="fa-solid fa-angles-left"></i
           ></a>
         </li>
         <li>
-          <a class="fs-3 btn m-lg-3 d-block"
+          <a class="fs-4 btn m-lg-3 d-block"
             ><i class="fa-solid fa-chevron-left"></i
           ></a>
         </li>
@@ -200,12 +178,12 @@
           <div class="number2 d-flex"></div>
         </div>
         <li>
-          <a class="fs-3 btn m-lg-3 d-block"
+          <a class="fs-4 btn m-lg-3 d-block"
             ><i class="fa-solid fa-chevron-right"></i
           ></a>
         </li>
         <li class="angles-right">
-          <a class="fs-3 btn m-lg-3 d-block"
+          <a class="fs-4 btn m-lg-3 d-block"
             ><i class="fa-solid fa-angles-right"></i
           ></a>
         </li>
@@ -250,7 +228,7 @@
                   novalidate="true"
                   action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
                   method="get"
-                  class="form-inline"
+                  class="form-inline d-flex"
                 >
                   <input
                     class="form-control"
@@ -299,7 +277,7 @@
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
       crossorigin="anonymous"
     ></script>
-    <script src="js/vendor/bootstrap.min.js"></script>
+    <!-- <script src="js/vendor/bootstrap.min.js"></script> -->
     <script
       type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"
@@ -322,16 +300,11 @@
       referrerpolicy="no-referrer"
     ></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
-      integrity="sha512-wT7uPE7tOP6w4o28u1DN775jYjHQApdBnib5Pho4RB0Pgd9y7eSkAV1BTqQydupYDB9GBhTcQQzyNMPMV3cAew=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="js/allUsers.js"></script>
-    <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
+
+    <script src="js/allUsers.js"></script>
   </body>
 </html>
