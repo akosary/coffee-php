@@ -1,7 +1,5 @@
 <?php
 
-$page= json_decode(file_get_contents("php://input"), true);
-
 class DB 
 {
     private $sql;
@@ -113,30 +111,11 @@ class DB
     // from orders inner join user
     // where user.Id= orders.id_user
     // group by user.name
-    // $offset;
-    public function getCount()
+    public function selectTotalUserWithAmount()
     {
         $this->query = "SELECT user.Id, user.name , sum(total_price) AS 'Total' FROM `orders` INNER JOIN `user` WHERE user.Id=orders.id_user GROUP BY user.name ORDER BY user.Id";
-        $this->query = "SELECT count(user.Id) AS 'CountOfUsers' FROM `orders` INNER JOIN `user` WHERE user.Id=orders.id_user " ;
         $this->sql= $this->con->prepare($this->query);
-        $this->sql->execute();
-        $indexes = $this->sql->fetch(PDO::FETCH_ASSOC);
-        if($indexes)
-        {
-            return $indexes;
-        }else
-        {
-            return 'Failed';
-        }
-    }
-
-    
-    
-    public function selectTotalUserWithAmount($pageNo, $perPage)
-    {
-        $offset = $perPage * ($pageNo - 1);
-        $this->query = "SELECT user.Id, user.name , sum(total_price) AS 'Total' FROM `orders` INNER JOIN `user` WHERE user.Id=orders.id_user GROUP BY user.name ORDER BY user.Id LIMIT $perPage OFFSET $offset" ;
-        $this->sql= $this->con->prepare($this->query);
+        // echo $this->query;
         $this->sql->execute();
         $indexes = $this->sql->fetchAll(PDO::FETCH_ASSOC);
         if($indexes)
@@ -182,9 +161,9 @@ class DB
         }
     }
 }
-
 $obj = new DB('mysql','localhost','coffee_db_project','root',1234);
 
+$orderId= json_decode(file_get_contents("php://input"), true);
+// var_dump($orderId);
 
-echo json_encode($obj->selectTotalUserWithAmount($page['pageNumber'],$page['perPage'] ));
-// echo json_encode($obj->getCount());
+echo json_encode($obj->getOrderDetails('cart','order_id',$orderId));
