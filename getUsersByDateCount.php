@@ -176,13 +176,12 @@ class DB
         }
     }
 
-    public function getUsersByDateOfOrders($from,$to,$per,$pageNo)
+    public function getUsersByDateOfOrders($from,$to)
     {
-        $offset = $per * ($pageNo - 1);
-        $this->query = "SELECT user.Id , user.name , sum(orders.total_price) AS 'Total' FROM `user` INNER JOIN `orders` WHERE user.Id = orders.id_user AND orders.created_at >= '$from' AND orders.created_at <= '$to' GROUP BY user.name LIMIT $per OFFSET $offset";
+        $this->query = "SELECT count( DISTINCT user.Id) as 'CountOfUsers' FROM `user` INNER JOIN `orders` WHERE user.Id = orders.id_user AND orders.created_at >= '$from' AND orders.created_at <= '$to'";
         $this->sql= $this->con->prepare($this->query);
         $this->sql->execute();
-        $index = $this->sql->fetchAll(PDO::FETCH_ASSOC);
+        $index = $this->sql->fetch(PDO::FETCH_ASSOC);
         if($index)
         {
             return $index;
@@ -194,9 +193,8 @@ class DB
 }
 $obj = new DB('mysql','localhost','coffee_db_project','root',1234);
 $Date= json_decode(file_get_contents("php://input"), true);
-$from = $Date['arrOfDate']['from'];
-$to = $Date['arrOfDate']['to'];
-$pageNumber = $Date['arrOfDate']['pageNumber'];
-$perPage = $Date['arrOfDate']['perPage'];
-echo json_encode($obj->getUsersByDateOfOrders($from,$to,$perPage,$pageNumber));
+$from = $Date['from'];
+$to = $Date['to'];
+
+echo json_encode($obj->getUsersByDateOfOrders($from,$to));
 
