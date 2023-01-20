@@ -1,57 +1,83 @@
+let countURL = "http://localhost/userCountToPaginate.php";
 const productsContainer = document.querySelector(".all-products .container");
 
-const productsData = getProducts();
-
-productsData.then((products) => {
-  for (const product of products) {
-    productsContainer.appendChild(
-      createProduct(product.name, product.price, product.imagePath)
-    );
+let per = 12;
+const productsData = getProducts(per,1);
+let ul = document.getElementById("ul1");
+let pro = document.getElementById("products");
+async function getCount(url){
+  let result = await fetch(url);
+  ul.innerHTML="";
+  let all = await result.json();
+  let usrs= all.countOfPages;
+  let totalPages = Math.ceil(usrs/ per);
+  for(var i =0;i<totalPages;i++){
+      var li = document.createElement("li");
+      li.className='page-item'
+      let a = document.createElement('a');
+      a.appendChild(document.createTextNode(i+1));
+      a.className="page-link";
+      a.setAttribute("onClick",`getProducts(${per} , ${i+1})`)
+      li.appendChild(a)
+      ul.appendChild(li);
   }
+}
 
-  let productsElements = document.querySelectorAll(".all-products .product");
 
-  let cartItemsEle = document.querySelector(".shopping-cart .cart-items");
-  console.log(cartItemsEle);
+// productsData
 
-  for (const key in productsElements) {
-    let productEl = productsElements[key];
-    let product = products[key];
+//   let productsElements = document.querySelectorAll(".all-products .product");
 
-    productEl.addEventListener("click", () => {
-      console.log(`${product.name} ${product.price} added to the cart`);
+//   let cartItemsEle = document.querySelector(".shopping-cart .cart-items");
+//   console.log(cartItemsEle);
 
-      cartItemsEle.appendChild(
-        createCartItem(product.name.substring(0, 5), product.price)
-      );
+//   for (const key in productsElements) {
+//     let productEl = productsElements[key];
+//     let product = products[key];
 
-      let deleteIconsElemenst = document.querySelectorAll(
-        ".cart-item .delete-icon"
-      );
+//     productEl.addEventListener("click", () => {
+//       console.log(`${product.name} ${product.price} added to the cart`);
 
-      console.log(deleteIconsElemenst);
+//       cartItemsEle.appendChild(
+//         createCartItem(product.name.substring(0, 5), product.price)
+//       );
 
-      deleteIconsElemenst.forEach((iconEle) => {
-        iconEle.addEventListener("click", () => {
-          console.log("remove product from cart");
-          iconEle.parentElement.style.display = "none";
-        });
-      });
-    });
-  }
-});
+//       let deleteIconsElemenst = document.querySelectorAll(
+//         ".cart-item .delete-icon"
+//       );
 
-async function getProducts() {
-  const url = "http://localhost/coffee-php/user-home.php";
+//       console.log(deleteIconsElemenst);
+
+//       deleteIconsElemenst.forEach((iconEle) => {
+//         iconEle.addEventListener("click", () => {
+//           console.log("remove product from cart");
+//           iconEle.parentElement.style.display = "none";
+//         });
+//       });
+//     });
+//   }
+// });
+
+async function getProducts(perPage,pageNumber) {
+  getCount(countURL);
+  const url = "http://localhost/user-home.php";
   let data;
-  try {
-    let response = await fetch(url);
-    data = await response.json();
-    // console.table(data);
-  } catch (error) {
-    console.log(error);
-  }
-  return data;
+
+    let response = await fetch(url,{
+      method:"post",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({"perPage":perPage , "pageNumber":pageNumber})
+    }).then((response)=>{
+      return response.json();
+    }).then((products) => {
+      productsContainer.innerHTML="";
+      for (const product of products) {
+        productsContainer.appendChild(
+          createProduct(product.name, product.price, product.imagePath)
+        )
+      }})
 }
 
 function createProduct(name, price, image) {

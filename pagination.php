@@ -165,7 +165,6 @@ class DB
 
 
 
-//$indexes[0]['product_id']
 
     public function getOrderDetails($table_name,$column_name , $column_value ){
         $this->query = "SELECT * FROM `$table_name` WHERE $column_name = $column_value";
