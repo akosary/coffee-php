@@ -7,6 +7,7 @@ let getCountOfUsersByDateUrl = "http://localhost/getUsersByDateCount.php";
 let getOrderDetailsURL = "http://localhost/getOrderDetails.php"
 let users= [];
 let countOfUsers;
+let userOrders = document.getElementById("details");
 
 async function getDataFromResponse(url){
     let res = await fetch(url);
@@ -46,6 +47,7 @@ async function getCount(url){
         let a = document.createElement('a');
         a.appendChild(document.createTextNode(i+1));
         a.className="page-link";
+        // a.classList.add('nav-link','active');
         // a.href="#"
         // a.attributes=`onClick="postPageNo(${i+1})"`;
         a.setAttribute("onClick",`postPageNo(${i+1},${per})`)
@@ -82,7 +84,7 @@ function postPageNo(no , perPage){
                     let cell1 = row.insertCell(0);
                     let cell2 = row.insertCell(1);
                     let cell3 = row.insertCell(2);
-                    cell1.innerHTML =` <i onClick="postUserIdUserFiled(${obj.Id})" class="bi bi-plus-square-fill btn p-0"></i>`;
+                    cell1.innerHTML =` <i id="clickOnOrder" onClick="postUserIdUserFiled(${obj.Id})" class="bi bi-plus-square-fill btn p-0"></i>`;
                     cell2.innerHTML = obj.name;
                     cell3.innerHTML = obj.Total;
                 }
@@ -246,6 +248,7 @@ function userSearch(){
 
 /**-------------------Start Get Orders ------------------- */
 function postUserIdUserFiled(id){
+    $(".details").toggle();
     product_tbody.innerHTML="";
     postUserId(OrderUrl,id,old_tbody);
 }
@@ -274,7 +277,7 @@ function postUserId(url ,id,destination ){
                     let cell1 = row.insertCell(0);
                     let cell2 = row.insertCell(1);
                     let cell3 = row.insertCell(2);
-                    cell1.innerHTML =` <i onClick="getOrderDetails(${obj.Id})" class="bi bi-plus-square-fill btn p-0"></i>`;
+                    cell1.innerHTML =` <i id="productsDetails" onClick="getOrderDetails(${obj.Id})" class="bi bi-plus-square-fill btn p-0"></i>`;
                     cell2.innerHTML = obj.total_price;
                     cell3.innerHTML = obj.created_at;
                 }
@@ -294,6 +297,7 @@ function postUserId(url ,id,destination ){
 /**-------------------Start Get Products ------------------- */
 let orderDetails;
 function getOrderDetails(id){
+    $(".products").toggle();
     let product_tbody = document.getElementById("productDetails");
     product_tbody.innerHTML = "";
     orderDetails = fetch( getOrderDetailsURL, {

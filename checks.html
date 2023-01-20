@@ -121,59 +121,60 @@
 
 
 			<div class="container" style="margin-top: 100px;">
-			<h2>Users</h2>
-			<table id="myUserTable" class="section-top-border table mt-5 table-striped text-center w-100" >
-					<thead>
-					<th>User Id</th>
-					<th>Name</th>
-					<th>Total Amount</th>
-				</thead>
-				<tbody id="userBody">
-				</tbody>
-			</table>
-			
-				<nav  class="d-flex justify-content-center">
-					<ul id="ul1" class="pagination">
-				  <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
-				  <!-- <li class="page-item"><a class="page-link" href="#" onclick="postPageNo(1)">1</a></li> -->
-				  <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li> -->
-				  <!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
-				</ul>
-			</nav>
+				<div>
+					<h2>Users</h2>
+					<table id="myUserTable" class="section-top-border table mt-5 table-striped text-center w-100" >
+							<thead>
+							<th>User Id</th>
+							<th>Name</th>
+							<th>Total Amount</th>
+						</thead>
+						<tbody id="userBody">
+						</tbody>
+					</table>
+					
+						<nav  class="d-flex justify-content-center">
+								<ul id="ul1" class="pagination">
+							<!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
+							<!-- <li class="page-item"><a class="page-link" href="#" onclick="postPageNo(1)">1</a></li> -->
+							<!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li> -->
+							<!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
+							</ul>
+						</nav>
+				</div>
 
-			  <div id="pages">
-				
-			  </div>
+			<div class="details" style="display:none;">
+				<h2>Orders</h2>
+				<table id="" class=" section-top-border table mt-5 table-striped text-center w-100" >
+						<thead class="table-head">
+						<th>Order Id</th>
+						<th>Total Amount</th>
+						<th>Created At</th>
+					</thead>
+					<tbody id="orderThead">
+					</tbody>
+				</table>
+			</div>
 
-			<h2>Orders</h2>
-			
-			<table id="" class="section-top-border table mt-5 table-striped text-center w-100" >
-					<thead class="table-head">
-					<th>Order Id</th>
-					<th>Total Amount</th>
-					<th>Created At</th>
-				</thead>
-				<tbody id="orderThead">
-				</tbody>
-			</table>
-			
-			<h2>Details</h2>
-			<table id="" class="section-top-border table mt-5 table-striped text-center w-100" >
-					<thead class="table-head">
-					<th>Image</th>
-					<th>Price</th>
-					<th>Quantity</th>
-				</thead>
-				<tbody id="productDetails">
-				</tbody>
-			</table>
-		</div>
+			<div class="products" style="display:none;">
+				<h2>Details</h2>
+				<table id="" class="section-top-border table mt-5 table-striped text-center w-100 " >
+						<thead class="table-head">
+						<th>Image</th>
+						<th>Price</th>
+						<th>Quantity</th>
+					</thead>
+					<tbody id="productDetails">
+					</tbody>
+				</table>
+			</div>
+			</div>
 
 
 
 			<!-- All Users -->
-			<div class="container" style="margin-top: 100px;">
+			<!-- <div class="container" style="margin-top: 100px;">
 				<h3 class="mb-30">Users</h3>
 				<table class="section-top-border">
 					<div class="progress-table-wrap">
@@ -200,12 +201,12 @@
 						</div>
 					</div>
 				</table>
-			</div>
+			</div> -->
 
 			
 
 			<!-- Order Details -->
-			<div class="container details " id="" style="margin-top: 100px; display: none;">
+			<!-- <div class="container details " id="" style="margin-top: 100px; display: none;">
 				<h3 class="mb-30">Details</h3>
 				<table class="section-top-border">
 					<div class="progress-table-wrap">
@@ -232,10 +233,10 @@
 						</div>
 					</div>
 				</table>
-			</div>
+			</div> -->
 
 			<!-- Products -->
-			<div class="container products " id="" style="margin-top: 100px; display:none;">
+			<!-- <div class="container products " id="" style="margin-top: 100px; display:none;">
 				<h3 class="mb-30">Products</h3>
 				<table class="section-top-border">
 					<div class="progress-table-wrap">
@@ -259,7 +260,7 @@
 						</div>
 					</div>
 				</table>
-			</div>
+			</div> -->
 
 
 
@@ -334,17 +335,17 @@
 			<script src="js/mail-script.js"></script>	
 			<script src="js/main.js"></script>	
 			<script>
-				$(document).ready(function(){
-					$("#clickOnOrder").click(function(){
-					$(".details").toggle();
-				});
-				});
+				//$(document).ready(function(){
+				//	$("#clickOnOrder").click(function(){
+				//	$(".details").toggle();
+				//});
+				//});
 
-				$(document).ready(function(){
-					$("#productsDetails").click(function(){
-					$(".products").toggle();
-				});
-				});
+				//$(document).ready(function(){
+					//$("#productsDetails").click(function(){
+					//$(".products").toggle();
+				//});
+				//});
 			</script>
 			<script src="checks.js"></script>
 		</body>
