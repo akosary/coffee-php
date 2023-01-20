@@ -1,10 +1,9 @@
 <?php
 
 include_once('./connection.php');
-if(isset($_COOKIE["order_id"])) {
+
    
-   
-    $id=$_COOKIE["order_id"];
+    $id=json_decode(file_get_contents("php://input"),true);
 
         $query2 = "SELECT DISTINCT (product.Id),name,imagePath,product.price,cart.quntity,orders.total_price FROM product,cart,orders
         WHERE product.Id=cart.product_id AND cart.order_id=orders.Id AND cart.order_id =$id";
@@ -15,8 +14,6 @@ if(isset($_COOKIE["order_id"])) {
             echo json_encode($data2);
         }
       
-
-    }
    
    else {
     echo json_encode(['error' => '!!!']);

@@ -1,6 +1,4 @@
-<?php
-require_once('products_session.php');
-?>
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -78,82 +76,55 @@ require_once('products_session.php');
                     </ul>
                 </nav><!-- #nav-menu-container -->
             
-                <img id="img1" width="50px" height="50px" src="<?php print_r($data_admin['imgPath']); ?> " alt="admin_pic">
-                <a id="a1" href=""><?php print_r($data_admin['name']); ?></a>
+                <img id="img1" width="50px" height="50px" src="" alt="admin_pic">
+                <a id="a1" href=""></a>
             </div>
         </div>
     </header><!-- #header -->
 
 
-<section class="sec2">
 
-<h2>Add Product</h2>
 
-<form method="POST" action="insert_page.php" id="myform" enctype="multipart/form-data">
-  <div class="form-group">
-    <div>
-  <label for="product_name" ><b>Product Name</b></label>
-    <input type="text" class="form-control" id="product_name" name="name" aria-describedby="emailHelp" placeholder="Enter name">
-    <p class="text-danger"></p>
-    </div>
-    <div>
-    <label for="product_price"><b>Product Price</b></label>
-    <input type="text" class="form-control" id="product_price" name="price" aria-describedby="emailHelp" placeholder="Enter price">
-    <p class="text-danger"></p>    
+<section class="sec1">
+<h2>Orders</h2>
+
+<table class="table" >
+  <thead>
+    <tr>
+    <th><b>Action</b></th>
+    <th><b>Order date</b></th>
+    <th><b>  Name</b></th>
+    <th><b>Room</b></th>
+   
+    </tr>
+  </thead>
+  
+  <tbody id="tableId">
+ 
+                    <!-- <tr onclick="myFunction(this)" id="" class="row1"> 
+                    </tr> -->
+                  
+              
+  </tbody>
+</table>
+<div class="container">
+
+    <table id="productTableDet" style="display: none;" >
+        <thead id="tablehead"> 
+            <th>name</th>
+            <th>price</th>
+            <th>hhhhhhh</th>
+            <th>hhhhhhh</th>
+        </thead>
+        <tbody id="product_row">
+            
+        </tbody>
+    </table>
 </div>
-
-<div>
-    <label for="product_quantity"><b>Product quantity</b></label>
-    <input type="text" class="form-control" id="product_quantity" name="quantity" aria-describedby="emailHelp" placeholder="Enter quantity">
-    <p class="text-danger"></p>    
-</div>
-
-    <div>
-    <label for="category"><b>Product Category</b></label>
-
-
-    <select name="categories" id="category">
-        <?php for($i=0 ;$i<count($data);$i++ ){ 
-        ?>
-        <option value="<?php  print_r($data[$i]['id']); ?>"><?php  print_r($data[$i]['name']);  ?></option>
-        <?php }?>
-      
-   </select>
-   <a id="cat" href="add_category.html">Add category</a>
-   <p class="text-danger"></p>   
-</div>
-<br>
-<div>
-<label for="formFile" class="form-label">Profile Picture</label>
-        <input
-          class="form-control mb-3"
-          name="formFile"
-          type="file"
-          id="product_image"
-        />
-    <p class="text-danger"></p>
-</div>
-
-<button type="submit" class="btn btn-outline-success">Save</button>
-<button type="reset" class="btn btn-outline-secondary">Reset</button>
-
-  </div>
-</form>
-
 </section>
 
 
-
-
-
-
-
-
-
-
-
-
-    <footer class="footer-area section-gap">
+<footer class="footer-area section-gap">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-5 col-md-6 col-sm-6">
@@ -227,7 +198,7 @@ require_once('products_session.php');
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
-    <script src="product.js"></script>
+    <script src="myjs.js"></script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@ $query = "INSERT INTO `category`( `name`) VALUES ('$Name')";
     $result = $sql->execute();
     // $data = $sql->fetchall(PDO::FETCH_ASSOC);
     if($result){
-        header('location:orders.php');
+        header('location:orders.html');
     }
     else{
         header('location:add_category.html');

@@ -4,7 +4,7 @@ $Name=$_POST['name'];
 $Price=$_POST['price'];
 $quantity=$_POST['quantity'];
 $Category=$_POST['categories'];
-// $Image=$_POST['img'];
+
 
 $img_ex=explode('/',$_FILES['img']['type'])[1];
 $img=$_FILES['img'];
@@ -15,11 +15,11 @@ $query = "INSERT INTO `product`( `name`, `price`, `quntity`, `imagePath`, `categ
  ('$Name','$Price','$quantity','$file_name_','$Category')";
     $sql = $con->prepare($query);
     $result = $sql->execute();
-    // $data = $sql->fetchall(PDO::FETCH_ASSOC);
+
     if($result){
-        header('location:orders.php');
+        header('location:orders.html');
     }
     else{
-        header('location:add_product.php');
+        header('location:add_product.html');
     }
 ?>
