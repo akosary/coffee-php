@@ -1,7 +1,7 @@
 <?php
 //start connection with database
 $sql = 'mysql:host=localhost;dbname=coffee_db_project';
-$con = new PDO ($sql,'root','01116832654');
+$con = new PDO ($sql,'root','1234');
 
 //validate all fields are required
 
