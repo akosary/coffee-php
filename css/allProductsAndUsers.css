@@ -17,6 +17,16 @@ html {
   height: 50px;
 }
 /* Start All Users  */
+#form-popup {
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  right: 0;
+  top: 9px;
+}
 .allProducts,
 .allUsers {
   height: 550px;
@@ -38,12 +48,16 @@ html {
   height: 80px;
 }
 .allProducts .table th,
-.allProducts .table td,
 .allUsers .table th,
+.allProducts .table td,
 .allUsers .table td {
   border-right: 1px solid var(--section-footer-color);
   font-size: 20px;
   vertical-align: middle;
+}
+.allProducts .table th,
+.allUsers .table th {
+  font-size: 15px;
 }
 @media (max-width: 576px) {
   .allProducts,
@@ -56,14 +70,18 @@ html {
   .allUsers .table td {
     font-size: 13px;
   }
+  .allProducts .table th,
+  .allUsers .table th {
+    width: 25%;
+  }
 }
 .allProducts img,
 .allUsers img {
   width: 50px;
   height: 50px;
 }
-.allProductsNum .numbers .active,
-.allUsersNum .numbers .active {
+.allProductsNum .numbers .active a,
+.allUsersNum .numbers .active a {
   border-radius: 6px;
   background-color: var(--main-color);
   color: white;

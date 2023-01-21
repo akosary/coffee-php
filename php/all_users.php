@@ -64,6 +64,22 @@ class DataBase
     $allData = $sql->fetchAll(PDO::FETCH_ASSOC);
     return $allData;
   }
+  public function selectAll_NumberRow($table, $numberRows, $from)
+  {
+    $query = "SELECT * FROM $table LIMIT $numberRows OFFSET $from";
+    $sql = $this->connection->prepare($query);
+    $sql->execute();
+    $allData = $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $allData;
+  }
+  public function selectAll_NumberRecords($table)
+  {
+    $query = "SELECT count(*) as count FROM $table";
+    $sql = $this->connection->prepare($query);
+    $sql->execute();
+    $allData = $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $allData;
+  }
   public function selectAll_table_condition($table, $condition)
   {
     $whereCondition = condition($condition);
@@ -104,36 +120,78 @@ class DataBase
     return $sql->execute();
   }
 }
+
+
 if (strpos($_SERVER["HTTP_ORIGIN"], "javascript") == false) {
   header("Access-Control-Allow-Origin: " . $_SERVER["HTTP_ORIGIN"]);
 }
+// header("Access-Control-Allow-Origin: *");
+// if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+//   header("Access-Control-Allow-Headers: *");
+// }
 $actual_link = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 $dataBase = new DataBase('mysql', 'localhost', 'coffee_db_project', 'root', '1234');
 if (str_contains($actual_link, 'all_users.php')) {
-  $users = $dataBase->selectAll_Table('user');
-  $users = json_encode($users);
-  echo $users;
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+  $response = $data;
+  $sourceImage = false;
+  if ($response == "count") {
+    $numberUsers = $dataBase->selectAll_NumberRecords('user');
+    $roomNumber = $dataBase->selectAll_Table('room');
+    $numberUsersAndRoomNumber = json_encode(array_merge($numberUsers, $roomNumber));
+    echo $numberUsersAndRoomNumber;
+  } elseif ($response === null) {
+    $errors = [];
+    foreach ($_REQUEST as $key => $value) {
+      if (empty($value)) {
+        $errors[$key] = "$key is required";
+      }
+    }
+    validImageUser();
+    if ($errors) {
+      echo json_encode($errors);
+    } else {
+      $result = $dataBase->update(
+        'user',
+        [
+          "name" => $_REQUEST['fullName'],
+          "roomNumber" => $_REQUEST['roomNumber'],
+          "imgPath" => $sourceImage
+        ],
+        ['id' => $_REQUEST['id']]
+      );
+      echo $result;
+    }
+  } elseif (gettype($response) === 'array') {
+    $result = $dataBase->delete(
+      'user',
+      ['id' => $response['id']]
+    );
+    echo $result;
+    // print_r($response);
+  } else {
+    $users = $dataBase->selectAll_NumberRow('user', 3, $response);
+    $users = json_encode($users);
+    echo $users;
+  }
 }
-
-// $divide = 0;
-// $cookie_number = 0;
-// for ($index = 0; $index < count($users); $index = $index + 16) {
-//   $multi_users = [];
-//   $divide++;
-//   if ($divide <= count($users) / 16) {
-//     for ($i = $index; $i < 16 + $index; $i++) {
-//       $multi_users[] = $users[$i];
-//     }
-//     $cookie_number++;
-//     $multi_users = json_encode($multi_users);
-//     setcookie("users$cookie_number", $multi_users);
-//   } else {
-//     for ($i = $index; $i < count($users); $i++) {
-//       $multi_users[] = $users[$i];
-//     }
-//     $cookie_number++;
-//     $multi_users = json_encode($multi_users);
-//     setcookie("users$cookie_number", $multi_users);
-//   }
-// }
+function validImageUser()
+{
+  global $errors;
+  $mime_type = explode('/', $_FILES["image"]['type'])[1];
+  $arrImages = ["png", "jpg", "jpeg"];
+  if ($_FILES["image"]['size'] == 0) {
+    $errors["image"] = "Error : Please Enter Product Image ..";
+  } else if ($_FILES["image"]['size'] > 1024 * 1024) {
+    $errors["image"] = 'Error : size of image must be maximum 1 mega';
+  } else if (!in_array($mime_type, $arrImages)) {
+    $errors["image"] = 'please upload png or jpg or jpeg';
+  } else {
+    $fileName = time() . '.' . $mime_type;
+    move_uploaded_file($_FILES["image"]['tmp_name'], '../img/upload/' . $fileName);
+    global $sourceImage;
+    $sourceImage = '../img/upload/' . $fileName;
+  }
+}
 ?>
