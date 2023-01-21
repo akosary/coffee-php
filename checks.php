@@ -2,6 +2,11 @@
 // session_start();
 // $userId = $_SESSION['user_id'];
 
+//SELECT IF(email='mberth5@theatlantic.com','true','false') as contain FROM `admin` order BY contain DESC LIMIT 1;
+
+session_start();  
+if(isset($_SESSION['user_id']))
+{
 $page= json_decode(file_get_contents("php://input"), true);
 require 'class.php';
 
@@ -153,3 +158,4 @@ require 'class.php';
 
 echo json_encode($obj->selectTotalUserWithAmount($page['pageNumber'],$page['perPage'] ));
 // echo json_encode($obj->getCount());
+}
