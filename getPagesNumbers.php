@@ -1,15 +1,6 @@
 <?php
-// session_start();
-// $userId = $_SESSION['user_id'];
 
-//SELECT IF(email='mberth5@theatlantic.com','true','false') as contain FROM `admin` order BY contain DESC LIMIT 1;
-
-// session_start();  
-// if(isset($_SESSION['user_id']))
-// {
-$page= json_decode(file_get_contents("php://input"), true);
 require 'class.php';
-
 // class DB 
 // {
 //     private $sql;
@@ -122,9 +113,25 @@ require 'class.php';
 //     // where user.Id= orders.id_user
 //     // group by user.name
 //     // $offset;
-//     public function getCount()
+//     public function selectTotalUserWithAmount()
 //     {
-//         $this->query = "SELECT count(user.Id) AS 'CountOfUsers' FROM `orders` INNER JOIN `user` WHERE user.Id=orders.id_user " ;
+//         $this->query = "SELECT user.Id, user.name , sum(total_price) AS 'Total' FROM `orders` INNER JOIN `user` WHERE user.Id=orders.id_user GROUP BY user.name ORDER BY user.Id LIMIT 8  " ;
+//         $this->sql= $this->con->prepare($this->query);
+//         // echo $this->query;
+//         $this->sql->execute();
+//         $indexes = $this->sql->fetchAll(PDO::FETCH_ASSOC);
+//         if($indexes)
+//         {
+//             return $indexes;
+//         }else
+//         {
+//             return 'Failed';
+//         }
+//     }
+    
+//     public function getPages()
+//     {
+//         $this->query = "SELECT count( DISTINCT user.Id) AS 'CountOfUsers' FROM `orders` INNER JOIN `user` WHERE user.Id=orders.id_user " ;
 //         $this->sql= $this->con->prepare($this->query);
 //         $this->sql->execute();
 //         $indexes = $this->sql->fetch(PDO::FETCH_ASSOC);
@@ -137,25 +144,12 @@ require 'class.php';
 //         }
 //     }
 
-//     public function selectTotalUserWithAmount($pageNo, $perPage)
-//     {
-//         $offset = $perPage * ($pageNo - 1);
-//         $this->query = "SELECT user.Id, user.name , sum(total_price) AS 'Total' FROM `orders` INNER JOIN `user` WHERE user.Id=orders.id_user GROUP BY user.name ORDER BY user.Id LIMIT $perPage OFFSET $offset" ;
-//         $this->sql= $this->con->prepare($this->query);
-//         $this->sql->execute();
-//         $indexes = $this->sql->fetchAll(PDO::FETCH_ASSOC);
-//         if($indexes)
-//         {
-//             return $indexes;
-//         }else
-//         {
-//             return 'Failed';
-//         }
-//     }
+
 // }
-// $obj = new DB('mysql','localhost','coffee_db_project','root',1234);
 
 
-echo json_encode($obj->selectTotalUserWithAmount($page['pageNumber'],$page['perPage'] ));
-// echo json_encode($obj->getCount());
-// }
+
+$obj = new DB('mysql','localhost','coffee_db_project','root',1234);
+
+$countOfUsers = $obj->getPages();
+echo json_encode( $countOfUsers);
