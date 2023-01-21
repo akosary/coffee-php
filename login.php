@@ -42,7 +42,7 @@ $admin = $sql->fetch();
 if ($admin)                                                 //if return only one admin
 {
     // login to admin page
-    $_SESSION['user_id'] = $admin['Id'];
+    $_SESSION['admin_id'] = $admin['Id'];
     header('Location:index.html');                   //just for experiement
     exit();
 }
