@@ -42,6 +42,7 @@ $admin = $sql->fetch();
 if ($admin)                                                 //if return only one admin
 {
     // login to admin page
+    $_SESSION['admin_id'] = $admin['Id'];
     header('Location:index.html');                   //just for experiement
     exit();
 }
@@ -60,13 +61,13 @@ $user = $sql->fetch();
 if ($user)                                                 //if return only one user
 {
     // login to users page
-    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_id'] = $user['Id'];
     header('Location:index.html');
     exit();
 }
 else 
 {
-    header('Location:forgetPassword.html');
+    header('Location:Login.html');
     exit();
 }
 
