@@ -1,0 +1,70 @@
+:root {
+  --primary-color: #b68834;
+  --secondary-color: #4f2b17;
+}
+
+.navbar {
+  background-color: var(--secondary-color) !important;
+  color: #fff;
+}
+
+.navbar .nav-link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.all-products .container,
+.last-orders .container {
+  gap: 16px;
+  padding: 0;
+}
+
+.all-products .product,
+.last-orders .product {
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+.pagination {
+  justify-content: center;
+  font-size: 18px;
+}
+
+.pagination .page-link {
+  color: var(--secondary-color);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: #fff;
+}
+
+.cart-form .btn[type="submit"] {
+  background-color: var(--secondary-color);
+  color: #fff;
+  font-size: 20px;
+}
+
+.cart-form .form-label {
+  font-size: 16px;
+}
+
+.cart-item {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.cart-item .product-name {
+  font-size: 20px;
+}
+.cart-item .delete-icon {
+  cursor: pointer;
+  stroke: #f44336;
+}
+.last_one{
+  width:100px !important; 
+  height: 100px !important;
+}
