@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+    <head>
+        <!-- Mobile Specific Meta -->
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <!-- Favicon-->
+        <link rel="shortcut icon" href="img/fav.png" />
+        <!-- Author Meta -->
+        <meta name="author" content="iti-team" />
+        <!-- Meta Description -->
+        <meta name="description" content="" />
+        <!-- Meta Keyword -->
+        <meta name="keywords" content="" />
+        <!-- meta character set -->
+        <meta charset="UTF-8" />
+        <!-- Site Title -->
+        <title>Coffee</title>
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
+            rel="stylesheet"
+        />
+        <!--
+			CSS
+			============================================= -->
+        <link rel="stylesheet" href="css/linearicons.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="css/magnific-popup.css" />
+        <link rel="stylesheet" href="css/nice-select.css" />
+        <link rel="stylesheet" href="css/animate.min.css" />
+        <link rel="stylesheet" href="css/owl.carousel.css" />
+        <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="./styleCard.css" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"
+                    ><img src="img/logo.png" alt="logo"
+                /></a>
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#"
+                                >Home <span class="sr-only">(current)</span></a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">My Orders</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex ml-auto align-items-center gap-2">
+                        <img
+                            class="fluid-img"
+                            src="https://via.placeholder.com/48"
+                            alt=""
+                        />
+                        <p class="mb-0 ml-2">User Name</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <!-- Shopping Cart -->
+                <aside class="col-4 shopping-cart">
+                    <form
+                        class="cart-form d-flex flex-column"
+                        method="post"
+                        id="formEdit"
+                        action=""
+                    >
+                        <div class="cart-items"></div>
+                        <label class="form-label" for="notes">Notes</label>
+                        <textarea
+                            class="form-control mb-2"
+                            name="notes"
+                            id="notes"
+                            cols="30"
+                            rows="10"
+                        ></textarea>
+
+                        <label class="form-label" for="room">Room</label>
+                        <select
+                            class="form-control"
+                            name="room"
+                            id="room"
+                        ></select>
+                        <div
+                            class="d-flex justify-content-between align-items-center my-3"
+                        >
+                            <p class="total-price">Total price:</p>
+                            <strong class="font-weight-bold"
+                                ><input
+                                    type="text"
+                                    name="total"
+                                    id="totalInLE"
+                                    style="width: 50px"
+                                    value="0"
+                                />
+                                LE</strong
+                            >
+                        </div>
+                        <button type="submit" class="btn" id="confirm">
+                            Confirm
+                        </button>
+                    </form>
+                </aside>
+                <main class="col-8">
+                    <!-- Last orderd Products -->
+                    <div class="last-orders mb-5">
+                        <h3 class="h3 mb-4">Last orders</h3>
+                        <div class="container ps-0 d-flex flex-wrap gap-4">
+                            <div class="product">
+                                <img
+                                    class="img-fluid"
+                                    src="https://via.placeholder.com/128"
+                                    alt=""
+                                />
+                                <p class="lead">Tea</p>
+                            </div>
+                            <div class="product">
+                                <img
+                                    class="img-fluid"
+                                    src="https://via.placeholder.com/128"
+                                    alt=""
+                                />
+                                <p class="lead">Tea</p>
+                            </div>
+                            <div class="product">
+                                <img
+                                    class="img-fluid"
+                                    src="https://via.placeholder.com/128"
+                                    alt=""
+                                />
+                                <p class="lead">Tea</p>
+                            </div>
+                            <div class="product">
+                                <img
+                                    class="img-fluid"
+                                    src="https://via.placeholder.com/128"
+                                    alt=""
+                                />
+                                <p class="lead">Tea</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All Products -->
+                    <div class="container all-products">
+                        <h3 class="mh3 mb-4">All Drinks</h3>
+                        <select class="form-select" id="users" name="users"></select>
+                        <form action="" method="post">
+                            <div class="input-group mb-3">
+                                <input
+                                    type="search"
+                                    name="search"
+                                    class="form-control"
+                                    placeholder="Search for drinks"
+                                    aria-label="search"
+                                    aria-describedby="input-group-right"
+                                />
+                                <button
+                                    type="submit"
+                                    name="submit"
+                                    class="input-group-text"
+                                    id="input-group-right-example"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="search-icon"
+                                        width="24"
+                                        height="24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="container ps-0 d-flex flex-wrap"></div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="container my-4">
+                        <nav>
+                            <ul id="ul1" class="pagination">
+                                <!-- <li class="page-item">
+                                    <a class="page-link" href="#">Previous</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li> -->
+                            </ul>
+                        </nav>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <script defer src="./card.js"></script>
+        <script src="js/vendor/jquery-2.2.4.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script
+            type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"
+        ></script>
+        <script src="js/easing.min.js"></script>
+        <script src="js/hoverIntent.js"></script>
+        <script src="js/superfish.min.js"></script>
+        <script src="js/jquery.ajaxchimp.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/parallax.min.js"></script>
+        <script src="js/waypoints.min.js"></script>
+        <script src="js/jquery.counterup.min.js"></script>
+        <script src="js/mail-script.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"
+            integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script src="./pagination.js"></script>
+        <script src="./card.js"></script>
+    </body>
+</html>
