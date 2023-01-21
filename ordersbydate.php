@@ -1,10 +1,5 @@
 <?php
 require('./connection.php');
-// $Date= json_decode(file_get_contents("php://input"), true);
-// $from = $Date['arrOfDate']['from'];
-// $to = $Date['arrOfDate']['to'];
-// $pageNumber = $Date['arrOfDate']['pageNumber'];
-// $perPage = $Date['arrOfDate']['perPage'];
 $from= json_decode(file_get_contents("php://input"), true)['from'];
 $to= json_decode(file_get_contents("php://input"), true)['to'];
 $pageNumber= json_decode(file_get_contents("php://input"), true)['pageNumber'];
