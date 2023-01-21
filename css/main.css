@@ -2287,6 +2287,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   background-size: cover;
 }
 
+.banner-area2 {
+  background: url(../img/coffee_image_header2.jpg) center;
+  background-size: cover;
+}
+
 @media (max-width: 1199.98px) {
   .banner-area .fullscreen {
     height: 920px !important;
