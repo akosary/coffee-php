@@ -1,7 +1,7 @@
 <?php
-
+session_start();
 include_once('./connection.php');
-
+if($_SESSION['admin_id']){
 $order_id=json_decode(file_get_contents("php://input"),true)[0];
 
 $status=json_decode(file_get_contents("php://input"),true)[1];
@@ -15,4 +15,6 @@ if ($result) {
     header('location:orders.html');
    
 }
+}
+
 

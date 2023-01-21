@@ -16,7 +16,7 @@ if(errors)
 }
 
 
- console.log(errors);
+//  console.log(errors);
 //insert error massage
 function insertErrorMassages(object)
 {

@@ -1,8 +1,8 @@
 <?php
-
+session_start();
 include_once('./connection.php');
 
-   
+if($_SESSION['admin_id']){
     $id=json_decode(file_get_contents("php://input"),true);
 
         $query2 = "SELECT DISTINCT (product.Id),name,imagePath,product.price,cart.quntity,orders.total_price FROM product,cart,orders
@@ -18,4 +18,6 @@ include_once('./connection.php');
    else {
     echo json_encode(['error' => '!!!']);
   }
+}
+
 

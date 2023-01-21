@@ -3,8 +3,10 @@
 async function getuserData(){
     let res = await fetch("http://localhost/admin_session.php");
     let data = await res.json();
+
     displayUserNameAndImage(data);
   }
+
   function displayUserNameAndImage(data){
     document.getElementById("img1").src=data.imgPath;
     document.getElementById("a1").innerHTML=data.name;
@@ -13,15 +15,14 @@ async function getuserData(){
 
 /////////////////////getorders///////////////////////
 
-
-
-
-
 async function getorders() {
     let res = await fetch("http://localhost/orders_session.php");
     let data = await res.json();
-    displayorders(data);
-}
+
+        displayorders(data);
+  
+    }
+
 
 
 function displayorders(order) {
@@ -100,11 +101,17 @@ function getorderRow2(order) {
     let c1=row.insertCell(0);
     let c2=row.insertCell(1);
     let c3=row.insertCell(2);
+    let img=document.createElement("img");
+    img.src=order.imagePath;
+    img.style.width="100px";
+    img.style.height="100px";
     let c4=row.insertCell(3);
     let c5=row.insertCell(4);
     c1.innerHTML=order.name;
     c2.innerHTML=order.price;
-    c3.innerHTML=order.imagePath;
+    c3.appendChild(img);
+    
+// console.log(img);
     c4.innerHTML=order.quntity;
     c5.innerHTML=order.total_price;
 }

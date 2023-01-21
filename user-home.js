@@ -109,3 +109,36 @@ function createCartItem(name, price) {
 
   return cartItemEle;
 }
+
+//////////////////////////last order///////////////////
+async function getLastOrderProducts() {
+  let res = await fetch("http://localhost/last_order.php");
+  let data = await res.json();
+  // createProduct(data.name, data.price, data.imagePath);
+  displayorders(data);
+}
+
+function displayorders(product) {
+  // console.log(order);
+  let category_row;
+  product.forEach((category) => {
+    category_row = getorderRow(category);       
+      document.querySelector(".orders").append(category_row);
+  });
+}
+
+function getorderRow(category) {
+  let div=document.createElement("div");
+ 
+  var category_name =document.createElement("p");
+  var category_img =document.createElement("img");
+  category_img.classList.add("last_one");
+  div.append(category_img);
+  div.append(category_name);
+
+  category_name.innerHTML=category.name;
+  category_img.src=category.imagePath;
+  return div;
+}
+getLastOrderProducts(); 
+
