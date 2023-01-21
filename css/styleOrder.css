@@ -1,3 +1,9 @@
+:root {
+    --main-color: #b68834;
+    --section-footer-color: #4f2b17;
+  }
+
+
 #userImg{
     width: 50px;
     height: 50px;
@@ -62,7 +68,7 @@
 .table tbody tr:last-of-type {
     border-bottom: 2px solid  rgba(20, 2, 0, 0.8);
 }
-.table tbody tr.active-row {
+.table tbody tr.displayActive {
     font-weight: bold;
     color:rgba(20, 2, 0, 0.8);
 }
@@ -78,3 +84,17 @@
    margin-left: 50px;
    font-size: 20px;
 }
+
+
+/* Number */
+.allProductsNum .numbers .active,
+.allUsersNum .numbers .active {
+  border-radius: 6px;
+  background-color: var(--main-color);
+  color: white;
+}
+.fa-angles-right,
+.fa-angles-left {
+  color: var(--main-color);
+}
+/* Number */

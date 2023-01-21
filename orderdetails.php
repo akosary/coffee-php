@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('./connection.php');
 $orderid=json_decode(file_get_contents("php://input"),true)['ORDER_ID'];
 $query = "SELECT c.price as price,p.name as name,c.quntity as quntity, p.imagePath as imagePath  FROM product as p,cart as c where c.order_id=$orderid and p.Id=c.product_id";

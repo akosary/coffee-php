@@ -1,7 +1,7 @@
 <?php
 require('./connection.php');
-
-$orderid=json_decode(file_get_contents("php://input"),true)[''];
+// $data = file_get_contents("php://input");
+$orderid=json_decode(file_get_contents("php://input"),true)['ORDER_ID'];
 $query = "UPDATE orders set status='canceled' where Id=$orderid";
     $sql = $con->prepare($query);
     $result = $sql->execute();
@@ -9,5 +9,3 @@ $query = "UPDATE orders set status='canceled' where Id=$orderid";
       $data = $sql->fetch(PDO::FETCH_ASSOC);
       echo json_encode($data);
   }
-
-
