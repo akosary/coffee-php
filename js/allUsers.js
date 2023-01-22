@@ -13,7 +13,7 @@ let stopFunction = 0;
 let myData, liNumber, rows, edits, doNotSend, deleteUser;
 let rowsAlreadyGit = [];
 let mainInformation = [];
-let url = "http://localhost/php/all_users.php";
+let url = "http://localhost:81/php/all_users.php";
 async function postData(num) {
   if (rowsAlreadyGit.includes(num)) {
     myData = 0;

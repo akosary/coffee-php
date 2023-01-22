@@ -42,7 +42,7 @@ productsData.then((products) => {
 });
 
 async function getProducts() {
-  const url = "http://localhost/coffee-php/user-home.php";
+  const url = "http://localhost:81/coffee-php/user-home.php";
   let data;
   try {
     let response = await fetch(url);
@@ -112,7 +112,7 @@ function createCartItem(name, price) {
 
 //////////////////////////last order///////////////////
 async function getLastOrderProducts() {
-  let res = await fetch("http://localhost/last_order.php");
+  let res = await fetch("http://localhost:81/last_order.php");
   let data = await res.json();
   // createProduct(data.name, data.price, data.imagePath);
   displayorders(data);

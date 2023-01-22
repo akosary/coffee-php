@@ -1,7 +1,7 @@
 /////////////////////get admin////////////////////
 
 async function getuserData(){
-  let res = await fetch("http://localhost/admin_session.php");
+  let res = await fetch("http://localhost:81/admin_session.php");
   let data = await res.json();
   displayUserNameAndImage(data);
 }

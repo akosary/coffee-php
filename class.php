@@ -44,23 +44,23 @@ class DB
     }
 
     // edit  resource
-    public function update($table_name , $id, $col_array )
-    {
-        foreach ($col_array AS $key => $value)
-        {
-            // echo $key . '= ' . $value;
-            $this->query = "UPDATE $table_name SET $key = '$value' WHERE id= $id ";
-            $this->sql = $this->con->prepare($this->query);
-            $this->sql->execute();
-        };
-        $result = $this->sql->fetchAll();
-        if(!$result)
-        {
-            return 'Updated successfully';
-        }else {
-            return 'Not updated';
-        }
-    }
+    // public function update($table_name , $id, $col_array )
+    // {
+    //     foreach ($col_array AS $key => $value)
+    //     {
+    //         // echo $key . '= ' . $value;
+    //         $this->query = "UPDATE $table_name SET $key = '$value' WHERE id= $id ";
+    //         $this->sql = $this->con->prepare($this->query);
+    //         $this->sql->execute();
+    //     };
+    //     $result = $this->sql->fetchAll();
+    //     if(!$result)
+    //     {
+    //         return 'Updated successfully';
+    //     }else {
+    //         return 'Not updated';
+    //     }
+    // }
 
 
     // create  resource
@@ -252,6 +252,21 @@ class DB
     public function getUsersByDateOfOrder($from,$to)
     {
         $this->query = "SELECT count( DISTINCT user.Id) as 'CountOfUsers' FROM `user` INNER JOIN `orders` WHERE user.Id = orders.id_user AND orders.created_at >= '$from' AND orders.created_at <= '$to'";
+        $this->sql= $this->con->prepare($this->query);
+        $this->sql->execute();
+        $index = $this->sql->fetch(PDO::FETCH_ASSOC);
+        if($index)
+        {
+            return $index;
+        }else
+        {
+            return ["result"=>'Failed'];
+        }
+    }
+    public function validateSessionId($id)
+    {
+        $this->query = "SELECT IF(Id=$id,'true','false') as contain 
+            FROM `admin` order BY contain DESC LIMIT 1";
         $this->sql= $this->con->prepare($this->query);
         $this->sql->execute();
         $index = $this->sql->fetch(PDO::FETCH_ASSOC);

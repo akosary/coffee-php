@@ -1,10 +1,10 @@
-let UserUrl = "http://localhost/checks.php";
-let OrderUrl = "http://localhost/getOrdersByUserId.php";
-let getUserUrl = "http://localhost/getSingleUser.php";
-let getPageNoURL = "http://localhost/getPagesNumbers.php";
-let getUsersByDateUrl = "http://localhost/getUsersByDate.php";
-let getCountOfUsersByDateUrl = "http://localhost/getUsersByDateCount.php";
-let getOrderDetailsURL = "http://localhost/getOrderDetails.php"
+let UserUrl = "http://localhost:81/checks.php";
+let OrderUrl = "http://localhost:81/getOrdersByUserId.php";
+let getUserUrl = "http://localhost:81/getSingleUser.php";
+let getPageNoURL = "http://localhost:81/getPagesNumbers.php";
+let getUsersByDateUrl = "http://localhost:81/getUsersByDate.php";
+let getCountOfUsersByDateUrl = "http://localhost:81/getUsersByDateCount.php";
+let getOrderDetailsURL = "http://localhost:81/getOrderDetails.php"
 let users= [];
 let countOfUsers;
 let userOrders = document.getElementById("details");
