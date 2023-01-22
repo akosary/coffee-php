@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('./connection.php');
-$userid=15;
+$userid=$_SESSION['user_id'];
 $Page=json_decode(file_get_contents("php://input"),true)['pageNumber'];
 $perPage=json_decode(file_get_contents("php://input"),true)['perPage'];
         $offset = $perPage * ($Page - 1);

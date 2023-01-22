@@ -49,12 +49,27 @@
                     <nav id="nav-menu-container">
                         <ul class="nav-menu me-5">
                             <li class="menu-active">
-                                <a href="#">Home</a>
+                                <a href="">Home</a>
                             </li>
+                            <li><a href="all_products.html">Products</a></li>
+                            <li><a href="all_users.html">Users</a></li>
                             <li>
-                                <a href="myorder.html">My Orders</a>
+                                <a href="orders.html">Orders</a>
                             </li>
-                            
+                            <li><a href="checks.html">Checks</a></li>
+                            <li>
+                                <div class="imageAdmin">
+                                    <!-- <a class="navbar-brand" href="#"
+                                        ><img
+                                            src="./img/admin_Images/1.jpg"
+                                            class="mw-100 rounded-circle"
+                                        />
+                                    </a> -->
+                                    <a href="#" class="navbar-brand">
+                                        <span class="ms-1">Admin</span>
+                                    </a>
+                                </div>
+                            </li>
                         </ul>
                     </nav>
                     <!-- #nav-menu-container -->
@@ -150,8 +165,13 @@
 
                     <!-- All Products -->
                     <div class="container all-products">
+                        <h3 class="mh3 mb-4">All Users</h3>
+                        <select
+                            class="form-select mb-5"
+                            id="users"
+                            name="users"
+                        ></select>
                         <h3 class="mh3 mb-4">All Drinks</h3>
-                        <!-- <select class="form-select" id="users" name="users"></select> -->
                         <form action="" method="post">
                             <div class="input-group mb-3">
                                 <input
@@ -288,7 +308,7 @@
                 </div>
             </div>
         </footer>
-        <script defer src="./user-home.js"></script>
+        <!-- <script defer src="./user-home.js"></script> -->
         <script src="js/vendor/jquery-2.2.4.min.js"></script>
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -312,7 +332,7 @@
         <script src="js/waypoints.min.js"></script>
         <script src="js/jquery.counterup.min.js"></script>
         <script src="js/mail-script.js"></script>
-        <script src="./user-home_last_order.js"></script>
+        <!-- <script src="./user-home_last_order.js"></script> -->
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"
             integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw=="
@@ -320,6 +340,6 @@
             referrerpolicy="no-referrer"
         ></script>
         <script src="js/main.js"></script>
-        <script src="./user-home_last_order.js"></script>
+        <script src="./user-home_last_orderAdmin.js"></script>
     </body>
 </html>

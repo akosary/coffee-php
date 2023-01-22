@@ -48,7 +48,7 @@
                     <nav id="nav-menu-container">
                         <ul class="nav-menu me-5">
                             <li class="menu-active">
-                                <a href="#">Home</a>
+                                <a href="index.html">Home</a>
                             </li>
                             <li><a href="all_products.html">Products</a></li>
                             <li><a href="all_users.html">Users</a></li>
@@ -69,9 +69,17 @@
                                     </a>
                                 </div>
                             </li>
+                            
                         </ul>
                     </nav>
                     <!-- #nav-menu-container -->
+                </div>
+                <div style="float: right;" >
+                    <form class="position-absolute " action="http://localhost/logout.php">
+                        <a href="#" class="navbar-brand">
+                            <span class="ms-1"><input class="btn"  type="submit" value="logout"></span>
+                        </a>
+                    </form>
                 </div>
             </div>
         </header>
@@ -595,5 +603,17 @@
         <script src="js/jquery.counterup.min.js"></script>
         <script src="js/mail-script.js"></script>
         <script src="js/main.js"></script>
+
+        <!-- <script>
+            function Redirect() {
+                window.location = "http://localhost/login.html";
+             }
+
+            fetch("http://localhost/session_Id.php").then(
+                (res)=>{
+                    return res.json();
+                }
+            )
+        </script> -->
     </body>
 </html>

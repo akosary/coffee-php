@@ -41,7 +41,7 @@ let arr = [];
 let rooms = document.getElementById("room");
 let totalInLE = document.getElementById("totalInLE");
 productsData.then(() => {
-    console.log(myData);
+    // console.log(myData);
     for (const product of myData) {
         productsContainer.appendChild(
             createProduct(
@@ -209,7 +209,7 @@ getRooms().then(() => {
 });
 let confirmForm = document.getElementById("confirm");
 confirmForm.addEventListener("click", (e) => {
-    console.log(confirmForm);
+    // console.log(confirmForm);
     // e.preventDefault();
     let formEdit = document.getElementById("formEdit");
     let form_data = new FormData(formEdit);
@@ -228,24 +228,24 @@ async function postData(num) {
         console.log(error);
     }
 }
-// let users = document.getElementById("users");
-// async function getAllUsers() {
-//     url = "http://localhost/users.php";
-//     try {
-//         let response = await fetch(url);
-//         data = await response.json();
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-// getAllUsers().then(() => {
-//     for (let index = 0; index < data.length; index++) {
-//         let option = document.createElement("option");
-//         option.innerHTML = data[index].name;
-//         option.value = data[index].id;
-//         users.appendChild(option);
-//     }
-// });
+let users = document.getElementById("users");
+async function getAllUsers() {
+    customURL = "http://localhost/users.php";
+    try {
+        let response = await fetch(customURL);
+        data = await response.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
+getAllUsers().then(() => {
+    for (let index = 0; index < data.length; index++) {
+        let option = document.createElement("option");
+        option.innerHTML = data[index].name;
+        option.value = data[index].id;
+        users.appendChild(option);
+    }
+});
 //////////////////////////last order///////////////////
 async function getLastOrderProducts() {
     let res = await fetch("http://localhost/last_order.php");

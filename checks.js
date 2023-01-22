@@ -1,10 +1,10 @@
-let UserUrl = "http://localhost:81/checks.php";
-let OrderUrl = "http://localhost:81/getOrdersByUserId.php";
-let getUserUrl = "http://localhost:81/getSingleUser.php";
-let getPageNoURL = "http://localhost:81/getPagesNumbers.php";
-let getUsersByDateUrl = "http://localhost:81/getUsersByDate.php";
-let getCountOfUsersByDateUrl = "http://localhost:81/getUsersByDateCount.php";
-let getOrderDetailsURL = "http://localhost:81/getOrderDetails.php"
+let UserUrl = "http://localhost/checks.php";
+let OrderUrl = "http://localhost/getOrdersByUserId.php";
+let getUserUrl = "http://localhost/getSingleUser.php";
+let getPageNoURL = "http://localhost/getPagesNumbers.php";
+let getUsersByDateUrl = "http://localhost/getUsersByDate.php";
+let getCountOfUsersByDateUrl = "http://localhost/getUsersByDateCount.php";
+let getOrderDetailsURL = "http://localhost/getOrderDetails.php"
 let users= [];
 let countOfUsers;
 let userOrders = document.getElementById("details");
@@ -100,6 +100,19 @@ function postPageNo(no , perPage){
 postPageNo(1,per);
 /**-------------------End of Get All User without pagination------------------- */
 
+///////////////////////////get admin///////////////////////
+
+async function getuserData(){
+    let res = await fetch("http://localhost/admin_session.php");
+    let data = await res.json();
+    displayUserNameAndImage(data);
+  }
+  function displayUserNameAndImage(data){
+    // console.log(data);
+    document.getElementById("img1").src=data.imgPath;
+    document.getElementById("a1").innerHTML=data.name;
+  }
+  getuserData();
 
 /**-------------------Get All User without pagination------------------- */
 // getDataFromResponse(UserUrl).then(

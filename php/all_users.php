@@ -1,5 +1,9 @@
 <?php
+session_start();
+$user_id=$_SESSION['user_id'];
 
+if($user_id)
+{
 function condition($condition)
 {
   $column = [];
@@ -193,5 +197,8 @@ function validImageUser()
     global $sourceImage;
     $sourceImage = '../img/upload/' . $fileName;
   }
+}
+}else{
+  header('Location: http://localhost/login.html');
 }
 ?>

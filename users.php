@@ -1,6 +1,6 @@
 <?php
 // Database connection with PDO
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=coffee_db_project', 'root', '1234');
+$pdo = new PDO('mysql:host=localhost;dbname=coffee_db_project', 'root', '1234');
 // Throw a PDOException if an error occurs.
 // returns bool TRUE on success or FALSE on failure.
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

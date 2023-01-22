@@ -20,5 +20,5 @@ if (count($sql->fetchAll()))                          //if returned email, excut
 }
 else
 {
-       header('Location:forgetPassword.html');
+    header('Location:forgetPassword.html');
 }

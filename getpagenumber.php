@@ -1,9 +1,10 @@
 
 <?php
 session_start();
-$user_id;
+// $user_id;
+$userid=$_SESSION['user_id'];
 require('./connection.php');
-  $query = "SELECT count(orders.Id) as numoforders FROM orders where id_user=15";
+  $query = "SELECT count(orders.Id) as numoforders FROM orders where id_user=$userid";
     $sql = $con->prepare($query);
     $result = $sql->execute();
     if ($result) {

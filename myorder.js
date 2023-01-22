@@ -1,6 +1,6 @@
 
 async function getuserData(){
-    let res = await fetch("http://localhost:81/userData.php");
+    let res = await fetch("http://localhost/userData.php");
     let data = await res.json();
     displayUserNameAndImage(data);
 }
@@ -42,8 +42,8 @@ let total;
 
 async function getorders(no , perPage) {
     document.querySelector("tbody").innerHTML="";
-    getCount("http://localhost:81/getpagenumber.php");
-    let res = await fetch("http://localhost:81/order.php",
+    getCount("http://localhost/getpagenumber.php");
+    let res = await fetch("http://localhost/order.php",
     {
         method: "post",
         headers: {
@@ -120,7 +120,7 @@ function getorderRow(order) {
 
 
 async function function_cancel(id) {
-    let res = await fetch("http://localhost:81/update.php",
+    let res = await fetch("http://localhost/update.php",
     {
         method: "post",
         headers: {
@@ -136,7 +136,7 @@ async function function_cancel(id) {
 
 async function function_showdetails(id) {
     
-    let res = await fetch("http://localhost:81/orderdetails.php",
+    let res = await fetch("http://localhost/orderdetails.php",
     {
         method: "post",
         headers: {
@@ -225,10 +225,10 @@ function searchByDate(perpage,numberPage=1){
     }
 };
 async function get_orders(per,no){
-    getCcount("http://localhost:81/countofordersbydate.php");
+    getCcount("http://localhost/countofordersbydate.php");
     // document.querySelector("tbody").innerHTML="";
     console.log("nn");
-    let res = await fetch("http://localhost:81/ordersbydate.php",
+    let res = await fetch("http://localhost/ordersbydate.php",
     {
         method: "post",
         headers: {

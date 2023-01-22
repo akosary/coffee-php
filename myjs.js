@@ -1,7 +1,7 @@
 /////////////////////get admin////////////////////
 
 async function getuserData(){
-    let res = await fetch("http://localhost:81/admin_session.php");
+    let res = await fetch("http://localhost/admin_session.php");
     let data = await res.json();
 
     displayUserNameAndImage(data);
@@ -16,7 +16,7 @@ async function getuserData(){
 /////////////////////getorders///////////////////////
 
 async function getorders() {
-    let res = await fetch("http://localhost:81/orders_session.php");
+    let res = await fetch("http://localhost/orders_session.php");
     let data = await res.json();
 
         displayorders(data);
@@ -119,7 +119,7 @@ function getorderRow2(order) {
 let products;
  function status_update(x) {
 //    console.log(x[1]);
-    fetch("http://localhost:81/status_update.php",
+    fetch("http://localhost/status_update.php",
     {
         method: "post",
         headers: {
@@ -131,7 +131,7 @@ let products;
 }
 
 async function show_details(x){
-    let res=await fetch("http://localhost:81/order_json.php",
+    let res=await fetch("http://localhost/order_json.php",
     {
         method: "post",
         headers: {

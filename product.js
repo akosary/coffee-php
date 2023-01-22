@@ -8,7 +8,7 @@ let product_img = document.getElementById("product_image");
 ///////////////////////////get admin///////////////////////
 
 async function getuserData(){
-  let res = await fetch("http://localhost:81/admin_session.php");
+  let res = await fetch("http://localhost/admin_session.php");
   let data = await res.json();
   displayUserNameAndImage(data);
 }
@@ -22,7 +22,7 @@ getuserData();
 
 /////////////////////////////getcategories///////////////////////////
 async function getorders() {
-  let res = await fetch("http://localhost:81/products_session.php");
+  let res = await fetch("http://localhost/products_session.php");
   let data = await res.json();
   displayorders(data);
 }

@@ -2,7 +2,7 @@
 session_start();
 require('./connection.php');
 // $_SESSION[""]
-$userid=11;
+$userid=$_SESSION['user_id'];
 $query = "SELECT * FROM user where Id=$userid";
     $sql = $con->prepare($query);
     $result = $sql->execute();

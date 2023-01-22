@@ -1,5 +1,5 @@
 <?php
-$pdo = new PDO('mysql:host=localhost;port=3306;dbname=coffee_db_project', 'root', '1234');
+$pdo = new PDO('mysql:host=localhost;dbname=coffee_db_project', 'root', '1234');
 session_start();
 $_SESSION['id'] = 57;
 $statement = $pdo->prepare("
