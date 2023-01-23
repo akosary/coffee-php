@@ -102,17 +102,7 @@ postPageNo(1,per);
 
 ///////////////////////////get admin///////////////////////
 
-async function getuserData(){
-    let res = await fetch("http://localhost/admin_session.php");
-    let data = await res.json();
-    displayUserNameAndImage(data);
-  }
-  function displayUserNameAndImage(data){
-    // console.log(data);
-    document.getElementById("img1").src=data.imgPath;
-    document.getElementById("a1").innerHTML=data.name;
-  }
-  getuserData();
+
 
 /**-------------------Get All User without pagination------------------- */
 // getDataFromResponse(UserUrl).then(
