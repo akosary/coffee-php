@@ -3,7 +3,7 @@
 session_start();
 $pdo = new PDO('mysql:host=localhost;port=3306;dbname=coffee_db_project', 'root', '1234');
 
-$user_id = 57 ;                                         //obtain user_id saved in session
+$user_id = $_SESSION['user_id'] ;                                         //obtain user_id saved in session
 
 $query = "SELECT * FROM product where Id = any(
     SELECT product_id FROM cart where order_id=(
