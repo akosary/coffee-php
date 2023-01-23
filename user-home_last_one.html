@@ -54,18 +54,35 @@
                             <li>
                                 <a href="myorder.html">My Orders</a>
                             </li>
-                            
+                            <li>
+                                <div class="imageAdmin">
+                                    <!-- <a class="navbar-brand" href="#"
+                                ><img id="img1" width="50px" height="50px" src="" alt="admin_pic">
+                                <a id="a1" href=""></a> -->
+                                    <a href="#" class="navbar-brand">
+                                        <img width="50px" height="50px" src="" id="imgOfUser" alt="">
+                                        <span class="ms-1" id="nameOfUser"></span>
+                                    </a>
+                                    <a href="#" class="navbar-brand">
+                                        <form
+                                            class="m-0 p-0"
+                                            action="http://localhost/logout.php"
+                                        >
+                                            <span class="ms-1"
+                                                ><input
+                                                    class="btn p-1  btn-outline-light"
+                                                    type="submit"
+                                                    value="logout"
+                                            /></span>
+                                        </form>
+                                    </a>
+                                </div>
+                            </li>
                         </ul>
                     </nav>
                     <!-- #nav-menu-container -->
                 </div>
-                <div style="float: right;" >
-                    <form class="position-absolute " action="http://localhost/logout.php">
-                        <a href="#" class="navbar-brand">
-                            <span class="ms-1"><input class="btn"  type="submit" value="logout"></span>
-                        </a>
-                    </form>
-                </div>
+                
             </div>
         </header>
         <section class="banner-area" id="home">
@@ -288,6 +305,7 @@
                 </div>
             </div>
         </footer>
+        <script src="session_validate_user.js"></script>
         <script defer src="./user-home.js"></script>
         <script src="js/vendor/jquery-2.2.4.min.js"></script>
         <script

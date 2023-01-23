@@ -131,12 +131,12 @@ if ($Profile_image['size'] == 0) {
     header('Location:Register.html');
     exit();
     // echo "true";
-} else if ($Profile_image['size'] <= 50000) {
+} else if ($Profile_image['size'] > 5000000) {
     setcookie('errors', json_encode(['formFile' => 'Error : Your size of image does not match the formatting .. ']));
     header('Location:Register.html');
     exit();
     // echo "true";
-} else if (!($extention !== 'jpg' || $extention !== 'png' || $extention !== 'jpeg')) {
+} else if (!($extention != 'jpg' || $extention != 'png' || $extention != 'jpeg')) {
     setcookie('errors', json_encode(['formFile' => 'Your image extention does not match the formatting (.pdf , .jpg , .png )']));
     header('Location:Register.html');
     exit();

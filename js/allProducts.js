@@ -259,20 +259,20 @@ function marginRightAndLeft() {
     let chevronLeft = document.querySelector(
         ".allProductsNum .fa-chevron-left"
     );
-    let margin = -90;
+    let margin = -100;
     let click = 1;
     chevronRight.parentElement.addEventListener("click", (e) => {
-        if (click <= liNumber.length / 2) {
+        if (click <= liNumber.length ) {
             number.style = `margin-left: ${margin}px;`;
-            margin = margin - 90;
+            margin = margin - 100;
             click++;
         }
     });
-    let margin2 = 90;
+    let margin2 = 100;
     chevronLeft.parentElement.addEventListener("click", (e) => {
         if (click > 1) {
             liNumber[0].style = `margin-left: ${margin2}px;`;
-            margin2 = margin2 + 90;
+            margin2 = margin2 + 100;
             click--;
         }
     });

@@ -30,6 +30,10 @@
 			<link rel="stylesheet" href="css/owl.carousel.css">
 			<link rel="stylesheet" href="css/main.css">
 			<link rel="stylesheet" href="css/allProductsAndUsers.css" />
+			<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 
 		</head>
 		<body>
@@ -38,7 +42,7 @@
 
 			<header id="header" id="home">
 				<div class="container">
-					<div class="align-items-center justify-content-between d-flex">
+					<div class="align-items-center justify-content-around d-flex">
 						<div id="logo">
 							<a href="user-home_last_oneAdmin.html"
 								><img src="img/logo.png" alt="" title=""
@@ -66,19 +70,33 @@
 											<img width="50px" height="50px" src="" id="imgOfUser" alt="">
 											<span class="ms-1" id="nameOfUser"></span>
 										</a>
-										
+										<a href="#" class="navbar-brand">
+											<form
+												class="m-0 p-0"
+												action="http://localhost/logout.php"
+											>
+												<span class="ms-1"
+													><input
+														class="btn p-1  btn-outline-light"
+														type="submit"
+														value="logout"
+												/></span>
+											</form>
+										</a>
 									</div>
 								</li>
 							</ul>
 						</nav>
 					</div>
-					<div style="float: right;" >
-						<form class="position-absolute " action="http://localhost/logout.php">
-							<a href="#" class="navbar-brand">
-								<span class="ms-1"><input class="btn"  type="submit" value="logout"></span>
-							</a>
-						</form>
-					</div>
+					<!-- <div style="float: right;" >
+						<a href="#" class="navbar-brand">
+							<form class="position-absolute " action="http://localhost/logout.php">
+							<span class="ms-1"><input class="btn"  type="submit" value="logout">
+								
+								</form>
+								</span>
+						</a>
+					</div> -->
 					</div>
 			</header><!-- #header -->
 
@@ -124,11 +142,11 @@
 			</div>
 
 			<!-- Start section -->
-			<div class="container mt-5" style="margin-top: 100px;">
+			<div class="container mt-5 " style="margin-top: 100px;">
 				<div>
 					<!-- Users -->
-					<h2>Users</h2>
-					<table id="myUserTable" class="section-top-border table mt-5 table-striped text-center w-100" >
+					<h2 class="animate__animated animate__heartBeat">Users</h2>
+					<table  id="myUserTable" class="section-top-border table mt-5 table-striped text-center w-100" >
 							<thead>
 							<th>User Id</th>
 							<th>Name</th>

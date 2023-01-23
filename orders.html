@@ -43,14 +43,15 @@
 
     <header id="header" id="home">
         <div class="container">
-            <div class="align-items-center justify-content-between d-flex">
+            <div class="align-items-center justify-content-around d-flex">
                 <div id="logo">
-                    <a href="index.html"
+                    <a href="user-home_last_oneAdmin.html"
                         ><img src="img/logo.png" alt="" title=""
                     /></a>
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu me-5">
+                        
                         <li class="menu-active">
                             <a href="user-home_last_oneAdmin.html">Home</a>
                         </li>
@@ -60,32 +61,44 @@
                             <a href="orders.html">Orders</a>
                         </li>
                         <li><a href="checks.html">Checks</a></li>
+                        
                         <li>
                             <div class="imageAdmin">
                                 <!-- <a class="navbar-brand" href="#"
-                                    ><img
-                                        src="./img/admin_Images/1.jpg"
-                                        class="mw-100 rounded-circle"
-                                    />
-                                </a> -->
+                            ><img id="img1" width="50px" height="50px" src="" alt="admin_pic">
+                            <a id="a1" href=""></a> -->
                                 <a href="#" class="navbar-brand">
-                                    <span class="ms-1">Admin</span>
+                                    <img width="50px" height="50px" src="" id="imgOfUser" alt="">
+                                    <span class="ms-1" id="nameOfUser"></span>
+                                </a>
+                                <a href="#" class="navbar-brand">
+                                    <form
+                                        class="m-0 p-0"
+                                        action="http://localhost/logout.php"
+                                    >
+                                        <span class="ms-1"
+                                            ><input
+                                                class="btn p-1  btn-outline-light"
+                                                type="submit"
+                                                value="logout"
+                                        /></span>
+                                    </form>
                                 </a>
                             </div>
                         </li>
-                        
                     </ul>
                 </nav>
-                <!-- #nav-menu-container -->
             </div>
-            <div style="float: right;" >
-                <form class="position-absolute " action="http://localhost/logout.php">
-                    <a href="#" class="navbar-brand">
-                        <span class="ms-1"><input class="btn"  type="submit" value="logout"></span>
-                    </a>
-                </form>
+            <!-- <div style="float: right;" >
+                <a href="#" class="navbar-brand">
+                    <form class="position-absolute " action="http://localhost/logout.php">
+                    <span class="ms-1"><input class="btn"  type="submit" value="logout">
+                        
+                        </form>
+                        </span>
+                </a>
+            </div> -->
             </div>
-        </div>
     </header><!-- #header -->
 
 
@@ -180,6 +193,7 @@
 				</div>
 			</footer>	
     <!-- End footer Area -->
+    <script src="session_validate.js"></script>
 
     <script src="js/vendor/jquery-2.2.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"

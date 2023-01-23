@@ -239,20 +239,20 @@ function leftActive() {
 function marginRightAndLeft() {
     let chevronRight = document.querySelector(".allUsersNum .fa-chevron-right");
     let chevronLeft = document.querySelector(".allUsersNum .fa-chevron-left");
-    let margin = -90;
+    let margin = -100;
     let click = 1;
     chevronRight.parentElement.addEventListener("click", () => {
-        if (click <= liNumber.length / 2) {
+        if (click <= liNumber.length ) {
             number.style = `margin-left: ${margin}px;`;
-            margin = margin - 90;
+            margin = margin - 100;
             click++;
         }
     });
-    let margin2 = 90;
+    let margin2 = 100;
     chevronLeft.parentElement.addEventListener("click", () => {
         if (click > 1) {
             liNumber[0].style = `margin-left: ${margin2}px;`;
-            margin2 = margin2 + 90;
+            margin2 = margin2 + 100;
             click--;
         }
     });
