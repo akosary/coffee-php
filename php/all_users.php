@@ -65,7 +65,7 @@ class DataBase
   }
   public function selectAll_NumberRow($table, $numberRows, $from)
   {
-    $query = "SELECT * FROM $table LIMIT $numberRows OFFSET $from ";
+    $query = "SELECT * FROM $table ORDER BY Id DESC LIMIT $numberRows OFFSET $from ";
     $sql = $this->connection->prepare($query);
     $sql->execute();
     $allData = $sql->fetchAll(PDO::FETCH_ASSOC);
