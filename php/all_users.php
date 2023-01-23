@@ -1,9 +1,4 @@
 <?php
-session_start();
-$user_id=$_SESSION['user_id'];
-
-if($user_id)
-{
 function condition($condition)
 {
   $column = [];
@@ -123,19 +118,24 @@ class DataBase
     $sql = $this->connection->prepare($query);
     return $sql->execute();
   }
+  public function validateSessionId($id)
+  {
+    $query = "SELECT IF(Id=$id,'true','false') as contain , imgPath ,name
+            FROM `admin` order BY contain DESC LIMIT 1";
+    $sql = $this->connection->prepare($query);
+    $sql->execute();
+    $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }
 }
-
-
-if (strpos($_SERVER["HTTP_ORIGIN"], "javascript") == false) {
-  header("Access-Control-Allow-Origin: " . $_SERVER["HTTP_ORIGIN"]);
-}
-// header("Access-Control-Allow-Origin: *");
-// if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-//   header("Access-Control-Allow-Headers: *");
-// }
-$actual_link = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+// session_start();
+// $_SESSION['user_id'] = 11;
+session_start();
 $dataBase = new DataBase('mysql', 'localhost', 'coffee_db_project', 'root', '1234');
-if (str_contains($actual_link, 'all_users.php')) {
+$user_id = $_SESSION['user_id'];
+$checkOnlyAdmin = $dataBase->validateSessionId($user_id);
+$actual_link = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+if ($checkOnlyAdmin[0]['contain'] === 'true' && str_contains($actual_link, 'all_users.php')) {
   $data = file_get_contents('php://input');
   $data = json_decode($data, true);
   $response = $data;
@@ -143,7 +143,7 @@ if (str_contains($actual_link, 'all_users.php')) {
   if ($response == "count") {
     $numberUsers = $dataBase->selectAll_NumberRecords('user');
     $roomNumber = $dataBase->selectAll_Table('room');
-    $numberUsersAndRoomNumber = json_encode(array_merge($numberUsers, $roomNumber));
+    $numberUsersAndRoomNumber = json_encode(array_merge($numberUsers, $roomNumber,$checkOnlyAdmin));
     echo $numberUsersAndRoomNumber;
   } elseif ($response === null) {
     $errors = [];
@@ -173,12 +173,13 @@ if (str_contains($actual_link, 'all_users.php')) {
       ['id' => $response['id']]
     );
     echo $result;
-    // print_r($response);
   } else {
     $users = $dataBase->selectAll_NumberRow('user', 3, $response);
     $users = json_encode($users);
     echo $users;
   }
+} elseif ($checkOnlyAdmin[0]['contain'] === 'false' && str_contains($actual_link, 'all_users.php')) {
+  echo json_encode('noOne');
 }
 function validImageUser()
 {
@@ -198,7 +199,5 @@ function validImageUser()
     $sourceImage = '../img/upload/' . $fileName;
   }
 }
-}else{
-  header('Location: http://localhost/login.html');
-}
+
 ?>

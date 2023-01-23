@@ -4,46 +4,51 @@ $data = file_get_contents('php://input');
 $data = json_decode($data, true);
 $response = $data;
 $sourceImage = false;
-if ($response == "count") {
-  $numberProducts = $dataBase->selectAll_NumberRecords('product');
-  $categories = $dataBase->selectAll_Table('category');
-  $numberAndCategory = json_encode(array_merge($numberProducts, $categories));
-  echo $numberAndCategory;
-} elseif ($response === null) {
-  $errors = [];
-  foreach ($_REQUEST as $key => $value) {
-    if (empty($value)) {
-      $errors[$key] = "$key is required";
+if ($checkOnlyAdmin[0]['contain'] === 'true') {
+  if ($response == "count") {
+    $numberProducts = $dataBase->selectAll_NumberRecords('product');
+    $categories = $dataBase->selectAll_Table('category');
+    $numberAndCategory = json_encode(array_merge($numberProducts, $categories,$checkOnlyAdmin));
+    echo $numberAndCategory;
+  } elseif ($response === null) {
+    $errors = [];
+    foreach ($_REQUEST as $key => $value) {
+      if (empty($value)) {
+        $errors[$key] = "$key is required";
+      }
     }
-  }
-  validImage();
-  if ($errors) {
-    echo json_encode($errors);
-  } else {
+    validImage();
+    if ($errors) {
+      echo json_encode($errors);
+    } else {
+      $result = $dataBase->update(
+        'product',
+        [
+          "name" => $_REQUEST['product'],
+          "price" => $_REQUEST['price'],
+          "category_id" => $_REQUEST['category'],
+          "imagePath" => $sourceImage
+        ],
+        ['id' => $_REQUEST['id']]
+      );
+      echo $result;
+    }
+  } elseif (gettype($response) === 'array') {
     $result = $dataBase->update(
       'product',
-      [
-        "name" => $_REQUEST['product'],
-        "price" => $_REQUEST['price'],
-        "category_id" => $_REQUEST['category'],
-        "imagePath" => $sourceImage
-      ],
-      ['id' => $_REQUEST['id']]
+      ['status' => $response['status']],
+      ['id' => $response['id']]
     );
     echo $result;
+  } else {
+    $products = $dataBase->selectAll_NumberRow('product', 3, $data);
+    $products = json_encode($products);
+    echo $products;
   }
-} elseif (gettype($response) === 'array') {
-  $result = $dataBase->update(
-    'product',
-    ['status' => $response['status']],
-    ['id' => $response['id']]
-  );
-  echo $result;
 } else {
-  $products = $dataBase->selectAll_NumberRow('product', 3, $data);
-  $products = json_encode($products);
-  echo $products;
+  echo json_encode('noOne');
 }
+
 function validImage()
 {
   global $errors;

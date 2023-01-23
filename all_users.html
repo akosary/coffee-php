@@ -41,52 +41,63 @@
         <link rel="stylesheet" href="css/allProductsAndUsers.css" />
     </head>
     <body>
-      <header id="header" id="home">
-        <div class="container">
-            <div class="align-items-center justify-content-between d-flex">
-                <div id="logo">
-                    <a href="user-home_last_oneAdmin.html"
-                        ><img src="img/logo.png" alt="" title=""
-                    /></a>
+        <header id="header" id="home">
+            <div class="container">
+                <div class="align-items-center justify-content-around d-flex">
+                    <div id="logo">
+                        <a href="user-home_last_oneAdmin.html"
+                            ><img src="img/logo.png" alt="" title=""
+                        /></a>
+                    </div>
+                    <nav id="nav-menu-container">
+                        <ul class="nav-menu me-5">
+                            <li class="menu-active">
+                                <a href="user-home_last_oneAdmin.html">Home</a>
+                            </li>
+                            <li><a href="all_products.html">Products</a></li>
+                            <li><a href="all_users.html">Users</a></li>
+                            <li>
+                                <a href="orders.html">Orders</a>
+                            </li>
+                            <li><a href="checks.html">Checks</a></li>
+                            <li>
+                                <div class="imageAdmin">
+                                    <a class="navbar-brand" href="#"
+                                        ><img
+                                            width="50"
+                                            
+                                            id="imageAdmin"
+                                            src=""
+                                            class="mw-100 rounded-circle"
+                                        />
+                                    </a>
+                                    <a href="#" class="navbar-brand">
+                                        <span class="ms-1" id="nameAdmin"
+                                            ></span
+                                        >
+                                    </a>
+                                    <a href="#" class="navbar-brand">
+                                        <form
+                                            class="m-0 p-0"
+                                            action="http://localhost:81/logout.php"
+                                        >
+                                            <span class="ms-1"
+                                                ><input
+                                                    class="btn btn-info text-white"
+                                                    type="submit"
+                                                    value="logout"
+                                            /></span>
+                                        </form>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- <div style="width: fit-content"></div> -->
+                    </nav>
+                    <!-- #nav-menu-container -->
                 </div>
-                <nav id="nav-menu-container">
-                    <ul class="nav-menu me-5">
-                        <li class="menu-active">
-                            <a href="user-home_last_oneAdmin.html">Home</a>
-                        </li>
-                        <li><a href="all_products.html">Products</a></li>
-                        <li><a href="all_users.html">Users</a></li>
-                        <li>
-                            <a href="orders.html">Orders</a>
-                        </li>
-                        <li><a href="checks.html">Checks</a></li>
-                        <li>
-                            <div class="imageAdmin">
-                                <a class="navbar-brand" href="#"
-                                    ><img
-                                        src="./img/admin_Images/1.jpg"
-                                        class="mw-100 rounded-circle"
-                                    />
-                                </a>
-                                <a href="#" class="navbar-brand">
-                                    <span class="ms-1">Admin</span>
-                                </a>
-                            </div>
-                        </li>
-                        
-                    </ul>
-                </nav>
-                <!-- #nav-menu-container -->
             </div>
-            <div style="float: right;" >
-                <form class="position-absolute " action="http://localhost/logout.php">
-                    <a href="#" class="navbar-brand">
-                        <span class="ms-1"><input class="btn"  type="submit" value="logout"></span>
-                    </a>
-                </form>
-            </div>
-        </div>
-    </header>
+        </header>
         <!-- #header -->
         <section class="generic-banner">
             <div class="container">
@@ -333,7 +344,7 @@
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"
         ></script>
-        <!-- <script src="js/vendor/bootstrap.min.js"></script> -->
+        <script src="js/vendor/bootstrap.min.js"></script>
         <script
             type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"
