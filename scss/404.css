@@ -1,0 +1,23 @@
+body {
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 2em;
+    margin: 50px 0;
+  }
+  
+  p {
+    font-size: 1.5em;
+    margin: 20px 0;
+  }
+  
+  #back {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
